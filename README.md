@@ -633,4 +633,65 @@ After this operation, 201 kB disk space will be freed.
 Removing htop (2.1.0-3) ...
 Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
 Purging configuration files for htop (2.1.0-3) ...
+Kullanıcı Yönetimi
+Linux işletim sistemlerinde kullanıcı yönetimi, sistem güvenliği ve kaynakların etkin bir şekilde paylaşımı açısından hayati bir öneme sahiptir. Bu bölümde, Linux'ta kullanıcıların nasıl oluşturulacağı, yönetileceği ve silineceği üzerine odaklanacağız.
 
+Linux'ta Kullanıcı Nedir?
+Linux sistemlerinde kullanıcılar, sisteme giriş yaparak çeşitli işlemleri yapan bireyler veya kurumlar olarak tanımlanır. Güvenli erişim kontrolü, kaynak dağılımı ve sistem yönetimi açısından kullanıcı yönetimi büyük önem taşır.
+
+Linux'ta bir kullanıcı, kimliklerini ve sistem içindeki ayrıcalıklarını tanımlayan birkaç özelliğe sahip kullanıcı hesabı ile ilişkilendirilir. Bu özellikler kullanıcı adı, UID (Kullanıcı ID'si), GID (Grup ID'si), ana dizin, varsayılan kabuk ve şifredir.
+
+Her kullanıcı hesabı yukarıda listelenen benzersiz özelliklere sahiptir.
+
+Kullanıcı Türleri
+Linux, iki tür kullanıcıyı destekler: sistem kullanıcıları ve normal kullanıcılar.
+
+Sistem kullanıcıları sistem tarafından kurulum sırasında oluşturulur ve sistem servisleri ile uygulamaları çalıştırmak için kullanılır.
+
+Normal kullanıcılar yönetici tarafından oluşturulur ve izinlerine bağlı olarak sisteme ve kaynaklarına erişebilirler.
+
+Kullanıcı Oluşturma
+Kullanıcı oluşturmak için useradd komutu kullanılır. Örneğin, "John" isimli bir kullanıcı oluşturmak istersek şu komutu kullanırız:
+
+root@hackerbox:~$ useradd -u 1002 -d /home/john -s /bin/bash john
+Bu komutla John için bir kullanıcı hesabı oluşturulur; bu hesap 1002 numaralı kullanıcı kimliğine (UID), /home/john olarak belirlenen bir ana dizine ve varsayılan kabuk olarak /bin/bash'e sahip olacak şekilde ayarlanmıştır.
+
+Oluşturulan yeni kullanıcı hesabını id john komutunu çalıştırarak kontrol edebiliriz. Bu komut, john kullanıcısının ID'sini ve grup üyeliklerini gösterir.
+
+root@hackerbox:~$ id john
+uid=1002(john)	gid=1002(john)	groups=1002(john)
+Kullanıcı Özellikleri
+Linux sistemlerde, kullanıcı hesapları çeşitli özelliklere sahiptir. Bu özellikler, kullanıcıların özelliklerini ve erişim ayrıcalıklarını tanımlar.
+
+Kullanıcı Adı: Her kullanıcıya, Linux sistem içinde tanımlayıcı olarak hizmet eden benzersiz bir kullanıcı adı atanır. Örneğin, John'un kullanıcı adı john olarak belirlenmiştir.
+UID (Kullanıcı Kimliği) ve GID (Grup Kimliği): Her kullanıcı hesabı bir UID ve GID ile ilişkilendirilir. UID, kullanıcıya atanmış sayısal bir değerken, GID kullanıcının ait olduğu ana grubu temsil eder. Örneğin, John'un UID'si 1002 ve ana grubunun GID'si de 1002 olabilir.
+Ana Dizin: Her kullanıcının kişisel dosya ve ayarlarının bulunduğu belirlenmiş bir ana dizini vardır. John'un ana dizini /home/john'dur.
+Varsayılan Kabuk: Varsayılan kabuk, kullanıcı giriş yaptığında kullanılan komut yorumlayıcısını belirler. Bu, kullanıcının etkileşimli ortamını tanımlar. John'un varsayılan kabuğu Linux'ta popüler olan /bin/bash olarak ayarlanmıştır.
+Şifre: Kullanıcı hesapları, sisteme erişim ve kimlik doğrulama için şifrelere ihtiyaç duyar.
+Grup: Grup üyeliği, kullanıcının hangi sistem kaynaklarına erişebileceğini ve hangi kullanıcıların kullanıcının dosyalarına erişebileceğini belirler.
+Linux sistemlerde kayıtlı kullanıcılar /etc/passwd yolundaki dosya içerisinde tutulur. Sistemdeki tüm kullanıcıların listesini görmek için bu dosyanın içeriğini yazdırabiliriz.
+
+root@hackerbox:~$ cat /etc/passwd
+root:x:0:0:System Administrator:/root:/bin/bash
+john:x:1002:1002:John Doe:/home/johndoe:/bin/bash
+/etc/passwd dosyası içerisinde bulunan kullanıcı listesi, aşağıdaki formattaki gibidir:
+
+Sütun Değeri	Açıklama
+john	Kullanıcı adı
+x	Kullanıcının şifresinin şifrelenmiş halini içerir. Güvenlik nedeniyle, şifre /etc/shadow dosyasında saklandığı için bu alan x karakteri ile değiştirilmiştir.
+1002	Kullanıcı hesabının UID'si (Kullanıcı Kimliği), sistemin kullanıcıya atadığı benzersiz sayısal tanımlayıcıdır.
+1002	Kullanıcı hesabının GID'si (Grup Kimliği), kullanıcının ana grup üyeliğini temsil eder.
+,,,:	GECOS alanı, "General Electric Comprehensive Operating System" anlamına gelir. Bu alan, kullanıcının tam adı veya iletişim bilgileri gibi ek bilgileri saklamak için kullanılır. Bu durumda, kullanıcı hesabı oluşturulurken ek bilgi verilmediği için alan boştur.
+/home/john	Kullanıcı hesabının ana dizini, kullanıcının dosyalarının ve kişisel verilerinin saklandığı yerdir.
+/bin/bash	Kullanıcı hesabının varsayılan kabuğu, terminalde kullanıcı tarafından girilen komutları işlemek için kullanılan komut yorumlayıcıdır. Bu durumda, varsayılan kabuk Bash'tir, Linux'ta en yaygın kullanılan kabuktur.
+Kullanıcı Parolası Değiştirme
+Kullanıcıların parolaları passwd komutu ile kolayca değiştirilebilir. Örneğin, john kullanıcısına yeni bir parola atamak için aşağıdaki komutu kullanabiliriz.
+
+root@hackerbox:~$ sudo passwd john
+Bu komut interaktif bir şekilde parola girmenizi ister, parolayı tuşladığınızda ekranda bir hareket görülmeyecek. Endişelenmeyin, bastığınız tuşlar güvenlik gerekçesi ile ekrana yansıtılmamaktadır. Yeni parolayı girip ENTER tuşuna basmanız yeterli.
+
+Kullanıcı Silme
+John isimli kullanıcıyı ve ilgili dosyaları kaldırmak için userdel komutunu kullanabiliriz.
+
+root@hackerbox:~$ sudo userdel john
+Bu komut john kullanıcısının hesabını, ev dizini ve kullanıcının sahip olduğu tüm dosya/dizinlerle birlikte silecektir.
