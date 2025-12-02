@@ -155,4 +155,45 @@ Tools Tactics
 Discord
 Hackviser’ın Discord kanalına katılarak, siber güvenlik konularında yardım alabileceğiniz ve tecrübelerinizi paylaşabileceğiniz bir topluluğun parçası olun. Teknik sorunlarınızda destek alabileceğiniz, benzer ilgi alanlarına sahip kişilerle iletişim kurabileceğiniz bir ortam sunuyoruz.
 
-💪 Discord Topluluğumuza Katılın
+Linux'a Giriş
+Linux işletim sistemine yolculuğumuzun başına hoş geldiniz. Bu bölümde, temel kavramları, tarihçeyi, modern bilişim manzarasında Linux'un önemini ve bu güçlü işletim sisteminin altında yatan ana ilkeleri tanıtmayı amaçlıyoruz.
+
+Linux Nedir?
+Linux, 1991 yılında Linus Torvalds tarafından geliştirilen ve hala gelişmeye devam eden, Unix mimarisine dayanan ücretsiz ve açık kaynaklı bir işletim sistemidir (OS). O zamandan beri küresel bir fenomene dönüşen Linux, süper bilgisayarlardan sunuculara, cep telefonlarından kişisel bilgisayarlara kadar her şeyi güçlendirmektedir. Stabilitesi, güvenliği ve esnekliği ile tanınan Linux, hem kişisel hem de profesyonel kullanım için popüler bir seçenektir.
+
+Linux Felsefesi
+Linux, işbirliği ve özgürlük ruhunu temsil eder. Gelişimi, aşağıdaki ilkeleri kanıtlar:
+
+Özgürlük: Linux, kullanıcılara yazılımlarını kontrol etme, değiştirme ve yeniden dağıtma özgürlüğü verir. Bu, inovasyon ve güvenlik ortamını teşvik eder.
+
+İşbirliği: Dünya genelinde binlerce geliştirici Linux'a katkıda bulunur, böylece keskin, güvenli ve kullanıcı ihtiyaçlarına duyarlı kalır.
+
+Şeffaflık: Linux'un açık kaynak doğası, mülkiyetli sistemlerle karşılaştırılamayacak bir şeffaflık seviyesi sağlar.
+
+Linux Nasıl Çalışır?
+Linux, Windows veya macOS gibi bir işletim sistemidir ancak nasıl çalıştığı ve ücretsiz, açık kaynak doğası açısından farklıdır. Kalbinde Linux çekirdeği bulunur, bu da sistemin temel parçasıdır. Çekirdek (kernel), bilgisayarın donanımını, CPU, bellek ve çevre birimleri gibi yönetmekten sorumludur ve tüm yazılım uygulamalarının fiziksel donanımla etkileşimde bulunmasını sağlar.
+
+Çekirdek, yazılım uygulamaları ile bilgisayarın donanımı arasında bir köprü görevi görerek çalışır. Bir yazılım uygulaması, bir dosyayı kaydetmek veya ekranda bir şey göstermek gibi donanımla ilgili bir şey yapmak istediğinde, bir istek çekirdeğe gönderir. Çekirdek, bu isteği donanımın anlayacağı talimatlara çevirir.
+
+Linux, çoklu görev ve çok kullanıcılı bir ortamı destekler. Bu, birden fazla kullanıcının aynı anda sistemi kullanabilmesi ve her birinin aynı anda birden fazla programı çalıştırabilmesi anlamına gelir. Bu, birçok kişinin farklı görevler için aynı sisteme erişmesi gereken sunucu ortamlarında özellikle yararlıdır.
+
+Linux dosya sistemi, kök dizinden ("/" olarak gösterilir) başlayarak hiyerarşik olarak organize edilmiştir ve alt dizinlere genişler. Bu organizasyon, dosyaları yönetmeyi ve bulmayı kolaylaştırır.
+
+Çekirdeğin etrafında, ek işlevsellik sağlayan birçok yazılım aracı ve kütüphane bulunur. Bunlar, grafik kullanıcı arayüzleri (GUI'ler), sistem yardımcı programları ve uygulama yazılımlarını içerebilir. Kullanıcılar, bu bileşenleri karıştırıp eşleştirerek özel ihtiyaçlarını karşılayan bir Linux dağıtımı oluşturabilir. Linux dağıtımları, çekirdeği bir yazılım seçimi ile paketleyerek kullanıma hazır tam bir işletim sistemi sunar. Popüler Linux dağıtımlarına Ubuntu, Fedora ve CentOS örnek verilebilir.
+
+Linux Mimarisi
+Linux işletim sistemi, bilgisayarın kaynaklarını yönetmek ve kullanıcı etkileşimini kolaylaştırmak için birkaç katmandan oluşmaktadır:
+
+
+
+Donanım Katmanı (Hardware): Bu, bilgisayarın işlemcisi (CPU), belleği (RAM), depolama için sabit disk ve klavyeler, fareler ve yazıcılar gibi çevre birimlerinden oluşan sistemin fiziksel temelidir.
+
+Çekirdek Katmanı (Kernel): Linux'un kalbinde yer alan çekirdek (kernel), işletim sistemi için hayati öneme sahiptir. Yazılım ile donanım arasında aracı olarak hareket eder. Çekirdek, bellek tahsisi, işlem planlaması (CPU'nun ne zaman ve hangi görevleri gerçekleştireceğine karar verme) ve yazılımdan gelen giriş/çıkış isteklerini yönetme gibi görevleri üstlenir. Bu katman, sistemde çalışan farklı programların ve kullanıcıların birbirlerine müdahale etmemelerini ve çalışmak için gerekli kaynaklara sahip olmalarını sağlar.
+
+Kabuk Katmanı (Shell): Kabuk(shell), çekirdeğin hizmetlerine erişmek için kullanılan kullanıcı arayüzüdür. Genellikle kullanıcıların komutlar yazdığı bir komut satırı arayüzü (CLI) olsa da, grafik kabuklar da vardır. Kabuk, kullanıcıların komut yazarak veya grafik bir arayüz kullanarak programların çalıştırılması, dosya yönetimi ve diğer hizmetlerin talep edilmesi için çekirdekle iletişim kurmalarını sağlar.
+
+Sistem Yardımcı Programı Katmanı (System Utility): Bu katman, bilgisayarda görevleri gerçekleştirmek için gerekli olan çeşitli araçları ve uygulamaları içerir. Sistem yardımcı programları, dosya yönetim araçlarından yazılım yükleyicilere, ağ yapılandırma araçlarına ve daha fazlasına kadar değişebilir. Kullanıcının komutlarını (kabukta girilen veya grafik bir arayüz aracılığıyla) çekirdeğin bu komutları işlemesine köprü görevi görürler.
+
+Özetle, Linux mimarisi, bir bilgisayarın donanımı ile kullanıcının etkinlikleri arasındaki etkileşimi, fiziksel bileşenlerden yazılım uygulamalarına kadar, iyi tanımlanmış bir yönetim ve kontrol katmanı aracılığıyla düzenler.
+
+
