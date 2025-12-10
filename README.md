@@ -694,4 +694,563 @@ Kullanıcı Silme
 John isimli kullanıcıyı ve ilgili dosyaları kaldırmak için userdel komutunu kullanabiliriz.
 
 root@hackerbox:~$ sudo userdel john
+
 Bu komut john kullanıcısının hesabını, ev dizini ve kullanıcının sahip olduğu tüm dosya/dizinlerle birlikte silecektir.
+
+Kullanıcı Yönetimi
+
+Linux işletim sistemlerinde kullanıcı yönetimi, sistem güvenliği ve kaynakların etkin bir şekilde paylaşımı açısından hayati bir öneme sahiptir. Bu bölümde, Linux'ta kullanıcıların nasıl oluşturulacağı, yönetileceği ve silineceği üzerine odaklanacağız.
+
+Kullanıcı Nedir ve Neden Önemlidir?
+
+Linux, doğası gereği çok kullanıcılı (multi-user) bir işletim sistemidir. Bu, aynı bilgisayar üzerinde aynı anda birden fazla kişinin çalışabileceği anlamına gelir.
+
+Kullanıcı Kavramı:
+
+Kimlik (Identity): Her kullanıcının bir adı (username) ve benzersiz bir numarası (UID - User ID) vardır.
+İzolasyon: Her kullanıcının kendine ait dosyaları, ayarları ve ev dizini (/home/kullaniciadi) vardır. Bir kullanıcı, izin verilmediği sürece diğerinin dosyalarını göremez.
+Yetki (Privilege): Her kullanıcının yapabilecekleri sınırlıdır. Sadece root kullanıcısı (Süper Kullanıcı) her şeyi yapabilir.
+Bu yapı, sistemin güvenliğini sağlar. Bir kullanıcı hata yapsa veya virüs bulaştırsa bile, bu durum diğer kullanıcıları veya sistemin genelini etkilemez (tabii ki root yetkisi yoksa).
+
+Kullanıcı Türleri
+
+Linux, iki tür kullanıcıyı destekler: sistem kullanıcıları ve normal kullanıcılar.
+
+Sistem kullanıcıları sistem tarafından kurulum sırasında oluşturulur ve sistem servisleri ile uygulamaları çalıştırmak için kullanılır.
+
+Normal kullanıcılar yönetici tarafından oluşturulur ve izinlerine bağlı olarak sisteme ve kaynaklarına erişebilirler.
+
+1. Kullanıcı Oluşturma
+
+İki komut vardır: adduser (Kolay) ve useradd (Zor).
+
+Önerilen Yöntem (adduser):
+Size sorular sorar ve ev dizinini otomatik ayarlar.
+
+user@hackerbox:~$ sudo adduser mehmet
+Adding user `mehmet' ...
+Adding new group `mehmet' (1001) ...
+Adding new user `mehmet' (1001) with group `mehmet' ...
+Creating home directory `/home/mehmet' ...
+Copying files from `/etc/skel' ...
+New password:
+Retype new password:
+passwd: password updated successfully
+Full Name []: Mehmet Yilmaz
+Is the information correct? [Y/n] Y
+Alternatif Yöntem (useradd):
+
+user@hackerbox:~$ sudo useradd -m -s /bin/bash ali
+-m: Ev dizini oluştur.
+-s: Shell'i belirle.
+
+2. Kullanıcı Bilgilerini Görme (id, who, w)
+
+Bir kullanıcının kimliğini ve gruplarını görmek için id kullanılır.
+
+user@hackerbox:~$ id mehmet
+uid=1001(mehmet) gid=1001(mehmet) groups=1001(mehmet)
+Sistemde kimlerin aktif olduğunu görmek için:
+
+who: Kimler bağlı?
+user@hackerbox:~$ who
+root     pts/0        2023-10-01 10:00 (192.168.1.5)
+mehmet   pts/1        2023-10-01 10:05 (192.168.1.6)
+w: Kimler ne yapıyor?
+user@hackerbox:~$ w
+ 10:10:01 up 1 day,  2 users,  load average: 0.00, 0.01, 0.05
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+root     pts/0    192.168.1.5      10:00    1.00s  0.10s  0.00s w
+mehmet   pts/1    192.168.1.6      10:05    2:00   0.05s  0.05s top
+last: Kim ne zaman girdi?
+user@hackerbox:~$ last
+mehmet   pts/1        192.168.1.6      Sun Oct  1 10:05   still logged in
+3. Kritik Dosyalar
+
+Kullanıcı yönetiminde bilmeniz gereken üç temel dosya vardır.
+
+a) /etc/passwd Dosyası:
+
+Bu dosya, sistemdeki tüm kullanıcıların temel bilgilerini saklar. Sistemdeki herkes tarafından okunabilir. Her satır bir kullanıcıyı temsil eder ve : ile ayrılmış 7 alandan oluşur.
+
+Örnek Satır:
+
+root@hackerbox:~$ cat /etc/passwd | tail -n 5
+cups-pk-helper:x:111:117:user for cups-pk-helper service,,,:/home/cups-pk-helper:/bin/false
+gnome-initial-setup:x:112:118::/run/gnome-initial-setup/:/bin/false
+gdm:x:113:119:Gnome Display Manager:/var/lib/gdm3:/bin/false
+mehmet:x:1001:1001:Mehmet Yilmaz,,,:/home/mehmet:/bin/bash
+ali:x:1002:1002::/home/ali:/bin/sh
+Alanların Anlamları Tablosu:
+
+Sıra	Alan Adı	Örnek	Açıklama
+1	Kullanıcı Adı	mehmet	Sisteme giriş yaparken kullanılan isim. 1-32 karakter arası olmalıdır.
+2	Parola	x	Eskiden burada parola yazardı. Şimdi güvenlik için x yazar, asıl parola /etc/shadow dosyasındadır.
+3	UID	1001	Kullanıcı Kimlik Numarası (User ID). Root her zaman 0'dır.
+4	GID	1001	Grup Kimlik Numarası (Group ID). Kullanıcının birincil grubu.
+5	Açıklama	Mehmet Yilmaz,,,	(GECOS) Kullanıcının tam adı, telefon numarası gibi ek bilgiler.
+6	Ev Dizini	/home/mehmet	Kullanıcı giriş yaptığında düştüğü dizin.
+7	Kabuk (Shell)	/bin/bash	Kullanıcının kullandığı komut yorumlayıcısı.
+b) /etc/shadow Dosyası:
+
+Kullanıcıların parolarının hash (kriptolanmış) halini ve parola geçerlilik sürelerini saklar. Güvenlik nedeniyle sadece root kullanıcısı okuyabilir.
+
+Örnek Satır:
+
+mehmet:$6$aB1...:19450:0:99999:7:::
+Alanların Anlamları Tablosu:
+
+Alan	Açıklama
+Kullanıcı Adı	Kullanıcının oturum açma adı.
+Parola Hash'i	$6$ ile başlıyorsa SHA-512 algoritmasıyla şifrelenmiştir. ! veya * varsa hesap kilitlidir.
+Son Değişiklik	1 Ocak 1970'ten (Epoch) bu yana geçen gün sayısı.
+Min Gün	Parolanın tekrar değiştirilebilmesi için geçmesi gereken minimum gün.
+Max Gün	Parolanın geçerli olduğu maksimum gün sayısı (Süresi dolunca değiştirmek zorunludur).
+Uyarı	Parola süresi dolmadan kaç gün önce uyarı verileceği.
+c) /etc/skel Dizini (Skeleton):
+
+Yeni bir kullanıcı oluşturulduğunda (örneğin useradd -m ile), bu dizinin içindeki her şey yeni kullanıcının ev dizinine kopyalanır.
+
+Örneğin .bashrc dosyasını buraya koyarsanız, yeni açılan her kullanıcının otomatik olarak bu ayarı almasını sağlarsınız.
+4. Kullanıcı Yönetimi (usermod)
+
+Mevcut bir kullanıcıyı değiştirmek için kullanılır.
+
+Gruba Ekleme (-aG):
+
+sudo usermod -aG sudo mehmet
+(Mehmet artık yönetici yetkisine sahip).
+
+Hesabı Kilitleme (-L):
+
+sudo usermod -L mehmet
+(Mehmet artık giriş yapamaz).
+
+Kilidi Açma (-U):
+
+sudo usermod -U mehmet
+5. Parola Zamanını Düzenleme (chage)
+
+Kullanıcının parolasını ne zaman değiştirmesi gerektiğini ayarlar.
+
+user@hackerbox:~$ sudo chage -l mehmet
+Last password change					: Aug 01, 2023
+Password expires					: never
+Password inactive					: never
+Account expires						: never
+Örnek: Parola 90 günde bir değişsin
+
+sudo chage -M 90 mehmet
+6. Kullanıcı Silme
+
+sudo userdel -r mehmet
+Grup Yönetimi
+
+Linux işletim sistemlerinde, grup yönetimi de kullanıcı yönetimi kadar önem taşır. Gruplar, birden fazla kullanıcıya aynı erişim haklarını ve izinleri toplu olarak atamak için kullanılır. Bu sayede, sistem yöneticileri kaynakların ve erişimin kolayca kontrol edilmesini sağlayabilir. Bu bölümde, Linux'ta grupların nasıl oluşturulacağı, yönetileceği ve silineceği üzerine odaklanacağız.
+
+Grup Nedir ve Neden Kullanılır?
+
+Linux sistemlerinde bir grup, belirli izinlere ve erişim haklarına sahip kullanıcıların topluluğudur. Gruplar, dosya sistemlerindeki erişim kontrolünü kolaylaştırmak ve kullanıcı yönetimini daha verimli hale getirmek için kullanılır.
+
+Bir şirkette çalıştığınızı düşünün. "Muhasebe" departmanındaki 50 kişinin, sadece muhasebe dosyalarına erişmesi gerekiyor. Eğer grup sistemi olmasaydı:
+
+50 kişi için tek tek dosya izni ayarlamanız gerekirdi.
+Yeni biri işe başladığında yine tek tek izin vermeniz gerekirdi.
+Grup sistemi sayesinde:
+
+Bir "Muhasebe" grubu oluşturursunuz.
+Dosyaların iznini bu gruba verirsiniz.
+50 kullanıcıyı bu gruba eklersiniz.
+Yeni biri geldiğinde sadece gruba eklemeniz yeterlidir.
+Özetle gruplar, yetki yönetimini toplu hale getirerek işimizi kolaylaştırır ve güvenliği artırır.
+
+Temel Komutlar
+
+Komut	Açıklama
+groupadd	Grup oluşturur.
+groupdel	Grubu siler.
+groups	Üye olunan grupları gösterir.
+getent group	Bir grubun detaylarını gösterir.
+/etc/group Dosyası ve Anlamı
+Grupların tanımlandığı dosya /etc/group dosyasıdır.
+
+yazilim:x:1002:mehmet,ali
+Sütunların Anlamları:
+
+Alan	Örnek	Açıklama
+Grup Adı	yazilim	Grubun ismi.
+Parola	x	Grup parolası (Genelde kullanılmaz).
+GID	1002	Grup Kimlik Numarası (Group ID).
+Üyeler	mehmet,ali	Gruba dahil kullanıcıların listesi.
+Örnek: Grup Oluşturma ve Sorgulama
+
+user@hackerbox:~$ sudo groupadd yazilim
+user@hackerbox:~$ getent group yazilim
+yazilim:x:1002:
+Gruba Üye Ekleme
+
+En güvenli yöntem usermod -aG kullanmaktır.
+
+Örnek Senaryo: Mehmet'i 'yazilim' grubuna ekle
+
+Önce kontrol edelim:
+
+user@hackerbox:~$ id mehmet
+uid=1001(mehmet) gid=1001(mehmet) groups=1001(mehmet)
+Ekleyelim:
+
+user@hackerbox:~$ sudo usermod -aG yazilim mehmet
+Tekrar kontrol edelim:
+
+user@hackerbox:~$ id mehmet
+uid=1001(mehmet) gid=1001(mehmet) groups=1001(mehmet),1002(yazilim)
+(Görüldüğü gibi yazilim grubu eklendi).
+
+Dikkat: -a (Append) kullanmazsanız, kullanıcının üye olduğu diğer tüm grupları siler!
+
+Gruba Üye Çıkarma
+
+Kullanıcıyı gruptan çıkarmak için gpasswd kullanılabilir.
+
+user@hackerbox:~$ sudo gpasswd -d mehmet yazilim
+Removing user mehmet from group yazilim
+Pratik Senaryo: Ortak Proje Dizini
+
+Bir proje dizini yapalım ve sadece proje grubundakiler erişebilsin.
+
+Grubu oluştur:
+user@hackerbox:~$ sudo groupadd proje
+Kullanıcıyı ekle:
+user@hackerbox:~$ sudo usermod -aG proje ali
+Dizini oluştur:
+user@hackerbox:~$ sudo mkdir /opt/proje
+Dizinin grubunu değiştir:
+user@hackerbox:~$ sudo chown :proje /opt/proje
+İzinleri ayarla:
+user@hackerbox:~$ sudo chmod 770 /opt/proje
+(Sahibi ve Grup tam yetkili, diğerleri giremez).
+
+İzinler
+
+İzin Nedir ve Neden Önemlidir?
+
+Linux, çok kullanıcılı bir sistem olduğu için her dosyanın kime ait olduğu ve kimin o dosyayla ne yapabileceği sıkı kurallara bağlanmıştır. Bu kurallara Dosya İzinleri denir.
+
+Neden İzinler Var?
+
+Gizlilik: Kişisel dosyalarınızı (örneğin e-postalarınızı) başka kullanıcıların okumasını engellemek için.
+Bütünlük: Önemli sistem dosyalarının yetkisiz kişilerce değiştirilmesini veya silinmesini önlemek için.
+Güvenlik: Kötü amaçlı bir yazılımın (virüs vb.) sistem genelinde çalışmasını ve yayılmasını engellemek için.
+Eğer izinler olmasaydı, herhangi bir kullanıcı sistemdeki kritik bir dosyayı silebilir ve sistemi çökertebilirdi.
+
+1. İzinleri Okuma
+
+Linux dosya sisteminde her dosya ve dizinin, sistemdeki kullanıcılar tarafından nasıl erişilebileceğini belirleyen izinleri vardır. Bu izinler, dosyanın güvenliğini ve bütünlüğünü sağlamak için kritiktir. İzin yapısını anlamak için ls -l komutunun çıktısını detaylıca incelememiz gerekir.
+
+root@hackerbox:~$ ls -l
+-rwxr--r-- 2 john development 4096 Jul  29 12:34 notes.txt
+ls -l çıktısı örneği: -rwxr--r--
+
+Bu ifade, aslında bir dizi karakterden oluşur ve her karakterin özel bir anlamı vardır.
+
+-l parametresi ile elde ettiğimiz çıktıdaki sütunların açıklamaları aşağıdaki gibidir:
+
+Sütun içeriği	Açıklama
+d	Dosya türü. Eğer dizin ise d, dosya ise - karakteri ile gösterilir. Bu örnekte d karakteri olduğu için bu bir dizin.
+rwxr--r--	Dosya izinleri
+2	Dosyaya/dizine verilen sabit bağlantı (hard link) sayısı
+john	Dosya/dizinin sahibi olan kullanıcı
+development	Dosya/dizinin sahibi olan grup
+4096	Dosyanın boyutu veya dizin bilgilerini saklamak için kullanılan blok sayısı
+Jul 29 12:34	Dosya/dizinin oluşturulma veya son düzenlenme tarihi
+notex.txt	Dosya/dizinin ismi
+r, w, x ve - Karakterleri
+İzinler temel olarak üç farklı yetki türü ve bir de yetkisizlik durumu ile ifade edilir:
+
+r (Read): Dosyanın içeriğini okuma iznini ifade eder. Eğer bu izin bir dizin (dizin) için verilmişse, o dizinin içindeki dosyaları listeleme (ls) yetkisi verir.
+w (Write): Dosyanın içeriğine yazma veya dosyayı düzenleyebilme iznini ifade eder. Bir dosya üzerinde değişiklik yapmak, içeriğini silmek veya üzerine yazmak için bu izne ihtiyaç vardır. Dizinler için ise, o dizinin içine yeni dosya oluşturma veya silme yetkisi verir.
+x (Execute): Dosyayı çalıştırabilme iznini ifade eder. Bu izin, genellikle scriptler (komut dosyaları) veya derlenmiş programlar için verilir. Eğer bir dosya çalıştırılabilir bir programsa ancak x izni yoksa, sistem bu dosyanın çalışmasına izin vermez. Dizinler için ise, o dizinin içine erişim (cd ile girme) yetkisi verir.
+- (Tire): Eğer r, w veya x karakterlerinden herhangi biri yerine - yazılmışsa, o pozisyondaki izin verilmemiş demektir.
+Kullanıcı, Grup ve Diğer (User, Group, Others)
+Linux izin sistemi, yetkileri üç farklı kitleye böler. ls -l çıktısındaki 10 karakterlik izin dizisinin ilk karakteri dosya tipini belirtirken, geri kalan 9 karakter üçerli gruplar halinde bu kitleleri temsil eder:
+
+---         ---     ---
+rwx         rwx     rwx
+kullanıcı   grup    diğer
+Kullanıcı (User - u):
+
+İzin dizisinin ilk üçlü grubudur (2, 3 ve 4. karakterler).
+Dosyanın veya dizinin sahibi olan kullanıcının yetkilerini ifade eder.
+Genellikle dosyayı oluşturan kişi sahibidir.
+Grup (Group - g):
+
+İzin dizisinin ikinci üçlü grubudur (5, 6 ve 7. karakterler).
+Dosyanın atandığı gruba dahil olan tüm kullanıcıların yetkilerini ifade eder.
+Bu özellik, bir proje üzerinde çalışan birden fazla kullanıcının aynı dosyalara erişebilmesi için kullanılır.
+Diğer (Others - o):
+
+İzin dizisinin son üçlü grubudur (8, 9 ve 10. karakterler).
+Sistemde bulunan, dosyanın sahibi olmayan ve dosyanın grubuna dahil olmayan diğer tüm kullanıcıların yetkilerini ifade eder.
+Genellikle "dünya" (world) olarak da adlandırılır.
+İzinleri Okuyalım
+Öncelikle yukarıdaki örnekte verilen izinleri (-rwxr-xr--) parçalayarak analiz edelim:
+
+-: En baştaki karakter dosya tipini gösterir. - olduğu için bunun bir dosya olduğunu anlıyoruz (d olsaydı dizin olurdu).
+rwx (Sahip): Dosya sahibi dosyayı okuyabilir (r), yazabilir (w) ve çalıştırabilir (x). Tam yetkiye sahiptir.
+r-x (Grup): Gruba dahil kullanıcılar dosyayı okuyabilir (r) ve çalıştırabilir (x), ancak dosyaya yazamazlar (-).
+r-- (Diğerleri): Diğer herkes dosyayı sadece okuyabilir (r). Yazamaz ve çalıştıramazlar.
+Örnek Çıktı Analizi:
+
+user@hackerbox:~$ ls -l script.sh
+-rwxr-xr-- 1 mehmet yazilim 450 Aug 01 14:00 script.sh
+Sahip (mehmet): Okur, yazar, çalıştırır (rwx).
+Grup (yazilim): Okur, çalıştırır (r-x).
+Diğerleri: Sadece okur (r--).
+2. İzin Değerleri (Oktal)
+
+İzinler sayılarla ifade edilir:
+
+r (Read) = 4
+w (Write) = 2
+x (Execute) = 1
+İzin	Sayısal Karşılık	Anlamı
+rwx	7 (4+2+1)	Tam yetki.
+rw-	6 (4+2)	Okur/Yazar.
+r-x	5 (4+1)	Okur/Çalıştırır.
+r--	4	Sadece Okur.
+İzinlerin Sayısal Karşılıkları Tablosu
+İzin Grubu	İzinler	Oktal Değer	Anlamı
+Sahip	rwx	7	Oku, Yaz, Çalıştır
+Grup	r-x	5	Oku, Çalıştır (Yazamaz)
+Diğer	r--	4	Sadece Oku
+TOPLAM	rwxr-xr--	754	Dosyanın tam izni
+3. İzinleri Değiştirme (chmod)
+
+Örnek Senaryo: Bir scripti çalıştırılabilir yapma
+
+script.sh için çalıştırma izni ekleme (755):
+
+user@hackerbox:~$ ls -l script.sh
+-rw-r--r-- 1 user user 0 Aug 01 12:00 script.sh
+user@hackerbox:~$ chmod 755 script.sh
+user@hackerbox:~$ ls -l script.sh
+-rwxr-xr-x 1 user user 0 Aug 01 12:00 script.sh
+Herkese tam yetki (777) — güvensizdir:
+
+user@hackerbox:~$ chmod 777 dosya.txt
+user@hackerbox:~$ ls -l dosya.txt
+-rwxrwxrwx 1 user user 0 Aug 01 12:00 dosya.txt
+Sadece sahip okur/yazar (600):
+
+user@hackerbox:~$ chmod 600 ozel.txt
+user@hackerbox:~$ ls -l ozel.txt
+-rw------- 1 user user 0 Aug 01 12:00 ozel.txt
+notes.txt dosyasında diğer kullanıcılara (o) yazma izni ekleyelim:
+
+root@hackerbox:~$ chmod o+w notes.txt
+root@hackerbox:~$ ls -l notes.txt
+-rw-rw-rw- 1 john development 4096 Jul 29 12:34 notes.txt
+Tek seferde tüm gruplara tüm izinleri vermek isterseniz:
+
+root@hackerbox:~$ chmod ugo+rwx notes.txt
+root@hackerbox:~$ ls -l notes.txt
+-rwxrwxrwx 1 john development 4096 Jul 29 12:34 notes.txt
+4. Özel İzinler (SUID, SGID, Sticky)
+
+Bu izinler güvenlik ve işbirliği için kritiktir.
+
+Ad	Sayısal	Nerede	Ne Yapar?	Örnek
+SUID	4000	Dosya	Çalıştıran kişi, dosya sahibinin yetkisiyle çalıştırır.	passwd
+SGID	2000	Dizin	İçinde oluşturulan dosyalar dizinin grubunu alır.	Ortak projeler.
+Sticky	1000	Dizin	Sadece dosya sahibi dosyasını silebilir.	/tmp
+Örnek: SUID Ayarlama
+
+user@hackerbox:~$ chmod 4755 dosya
+user@hackerbox:~$ ls -l dosya
+-rwsr-xr-x 1 root root 0 Aug 01 12:00 dosya
+(x yerine s geldi. Dosya artık root yetkisiyle çalışacak).
+
+Örnek: Sticky Bit Ayarlama (/tmp dizini)
+
+user@hackerbox:~$ chmod 1777 /tmp
+user@hackerbox:~$ ls -ld /tmp
+drwxrwxrwt 10 root root 4096 Aug 01 12:00 /tmp
+(t harfi Sticky Bit'i gösterir).
+
+5. Umask Hesaplama
+
+Varsayılan izinleri belirler. Standart değer 022'dir.
+
+Dosya: 666 - 022 = 644 (rw-r--r--)
+Dizin: 777 - 022 = 755 (rwxr-xr-x)
+Kendi umask değerinizi görmek için:
+
+user@hackerbox:~$ umask
+0022
+6. Dosya Öznitelikleri (chattr ve lsattr)
+
+İzinlerden daha güçlü koruma sağlar. Bir dosyayı değiştirilemez (immutable) yapmak için kullanılır.
+
+chattr +i dosya: Dosyayı kilitler. Root bile silemez.
+lsattr dosya: Öznitelikleri gösterir.
+user@hackerbox:~$ sudo chattr +i kritik_dosya.conf
+user@hackerbox:~$ rm kritik_dosya.conf
+rm: cannot remove 'kritik_dosya.conf': Operation not permitted
+(Kilidi açmak için sudo chattr -i kullanılır).
+
+
+Process Yönetimi
+
+Process Nedir ve Nasıl Çalışır?
+
+Linux işletim sisteminde, o an çalışan her programa veya komuta Process (Süreç) denir. Siz bir programa (örneğin Firefox'a) tıkladığınızda veya terminale bir komut (örneğin ls) yazdığınızda, işletim sistemi bu işlem için bellekte bir yer ayırır ve ona benzersiz bir kimlik numarası (PID) verir.
+
+Process'lerin Temel Özellikleri:
+
+PID (Process ID): Her process'in TC Kimlik numarası gibi benzersiz bir numarası vardır.
+Sahip (User): Process'i başlatan kullanıcıdır.
+Ebeveyn (Parent): Bir process, başka bir process tarafından başlatılabilir. (Örneğin terminalden Firefox açarsanız, terminal "baba", Firefox "çocuk" process olur).
+Process'leri yönetmek, sistemin performansını kontrol etmek ve kilitlenen programları kapatmak için hayati önem taşır.
+
+1. Süreç Türleri
+
+Ön Plan (Foreground) Process'leri
+Varsayılan olarak tüm process'ler ön planda yürütülür. Klavyeden girdi alırlar ve ekrana çıktı sağlarlar. pwd komutunu çalıştırmak buna iyi bir örnektir.
+
+user@hackerbox:~$ pwd
+/home/user
+Örnekte, pwd komutu tarafından yürütülen process ön planda çalışarak çıktı sağladı ve görevini yerine getirdikten sonra çıkış yaptı. Ön planda çalışan process'ler görevini yerine getirene kadar terminali kilitleyip, başka bir işlem yapmaya izin vermezler.
+
+Arka Plan (Background) Process'leri
+Arka plan process'leri, çalıştırıldığında terminali kitlemez ve arka planda çalışmaya başlar. Arka plan process'leri çalıştırıldığında, paralel olarak bir çok process çalıştırılabilir.
+
+Bir komutu arka planda çalıştırmak istersek sonuna & karakteri ekleyebiliriz.
+
+user@hackerbox:~$ ping 127.0.0.1 &
+[1] 54017
+[1] ifadesi, process'in iş (job) numarasının 1 olduğunu belirtiyor. 54017 ise process'in arka planındaki PID (Process ID) değeridir.
+
+2. Mevcut Terminal Oturumunda Çalışan Process'lerin Yönetimi
+
+Arka planda çalışan işleri listelemek için jobs kullanılır.
+
+user@hackerbox:~$ jobs
+[1]    running    ping 127.0.0.1
+Arka planda çalışan bu komutu tekrar ön plana almak için fg (foreground) komutunu kullanabiliriz.
+
+user@hackerbox:~$ fg %1
+ping 127.0.0.1
+Durdurmak için CTRL+C kullanabiliriz veya arka plana atıp duraklatmak için CTRL+Z kullanabiliriz.
+
+3. Sistem Genelinde Çalışan Process'lerin Yönetimi (ps, top)
+
+Sadece mevcut terminal oturumumuzda değil, tüm sistemde çalışan process'ler de bulunmaktadır.
+
+ps aux: Tüm process'lerin anlık fotoğrafını çeker.
+
+user@hackerbox:~$ ps aux | head -n 10
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.1 168436 10240 ?        Ss   08:00   0:02 /sbin/init
+root           2  0.0  0.0      0     0 ?        S    08:00   0:00 [kthreadd]
+root        1234  0.0  0.5 123456 23456 ?        Sl   08:05   0:10 /usr/sbin/apache2
+syslog       850  0.0  0.0 220100  5000 ?        Ssl  08:00   0:01 /usr/sbin/rsyslogd -n
+message+     855  0.0  0.1   8500  4200 ?        Ss   08:00   0:01 /usr/bin/dbus-daemon --system
+root         950  0.0  0.1  15000  6500 ?        Ss   08:00   0:00 /usr/sbin/sshd -D
+mehmet      5432  1.5  3.2 567890 65432 pts/0    R+   10:30   0:05 python3 script.py
+mehmet      5433  0.0  0.1   9000  4000 pts/0    S+   10:31   0:00 tail -f log.txt
+root        6000  0.1  2.0 400000 50000 ?        S    09:00   0:15 /usr/bin/containerd
+Sütunların Anlamları:
+
+Sütun	Açıklama
+USER	Process'i başlatan kullanıcı.
+PID	Process ID - process'in benzersiz kimlik numarası.
+%CPU	İşlemci kullanım oranı.
+%MEM	Bellek (RAM) kullanım oranı.
+STAT	Durum (R: Çalışıyor, S: Uyuyor, Z: Zombi).
+START	Başlangıç zamanı.
+COMMAND	Çalıştırılan komut.
+top: Sistemdeki process'leri canlı olarak izlemek için kullanılır. (Çıkmak için q).
+
+top - 14:30:00 up 10 days,  4:20,  1 user,  load average: 0.05, 0.10, 0.05
+Tasks: 123 total,   1 running, 122 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  1.0 us,  0.5 sy,  0.0 ni, 98.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   3900.0 total,   1500.0 free,   1200.0 used,   1200.0 buff/cache
+4. Çalışan Process'i Durdurmak (kill)
+
+Çalışan process'leri durdurmak için kill komutu kullanılır. PID numarasına ihtiyaç duyar.
+
+user@hackerbox:~$ kill 5432
+Süreç Sinyalleri (Process Signals):
+Bir process'i durdurmak için ona sinyal göndeririz. kill varsayılan olarak 15 numaralı sinyali gönderir.
+
+Sinyal No	Ad	Anlamı
+15	SIGTERM	Nazikçe kapan. (Varsayılan). Dosyaları kaydetmeye izin verir.
+9	SIGKILL	Derhal öl. Kaydetmeye izin vermez. Zorla kapatır.
+1	SIGHUP	Yeniden başla (Config dosyasını tekrar oku).
+2	SIGINT	Kesme sinyali. Klavyeden CTRL+C tuşuna basıldığında gönderilir.
+19	SIGSTOP	Process'i duraklatır (Pause). CTRL+Z ile gönderilir.
+18	SIGCONT	Duraklatılmış process'i devam ettirir (Continue).
+Eğer process normal kill ile kapanmıyorsa, zorla kapatmak için -9 kullanılır:
+
+user@hackerbox:~$ kill -9 5432
+İsmine Göre Öldürme (pkill, killall):
+PID aramadan ismiyle kapatmak için:
+
+user@hackerbox:~$ pkill python
+user@hackerbox:~$ killall firefox
+5. Öncelik Ayarı (nice, renice)
+
+Linux'ta process'lerin önceliği vardır (-20 en yüksek, 19 en düşük). Varsayılan 0'dır.
+
+nice: Programı başlatırken öncelik verir.
+
+user@hackerbox:~$ nice -n 10 tar -czf yedek.tar.gz /home
+(Yedekleme işlemi düşük öncelikle çalışsın, bilgisayarı yormasın).
+
+renice: Çalışan process'in önceliğini değiştirir.
+
+user@hackerbox:~$ renice -n -5 -p 5432
+6. Servis Yönetimi (systemd)
+
+Modern Linux sistemlerinde (Ubuntu, CentOS vb.) arka plan servislerini systemd yönetir. Komut aracımız systemctl'dir.
+
+Örnek: Nginx Servisi
+
+Durumunu gör:
+
+user@hackerbox:~$ systemctl status nginx
+● nginx.service - A high performance web server
+   Active: active (running) since Mon 2023-10-01 ...
+Başlat / Durdur:
+
+sudo systemctl start nginx
+sudo systemctl stop nginx
+Otomatik Başlat (Bilgisayar açılınca):
+
+sudo systemctl enable nginx
+
+
+ı oluşturmak için ssh-keygen komutunu kullanabilirsiniz:
+
+ssh-keygen
+Bu komutu çalıştırdıktan sonra, oluşturulan açık anahtarı (public key) uzaktaki sunucuya kopyalamanız gerekecektir:
+
+ssh-copy-id user@ip_address
+Örneğin:
+
+ssh-copy-id root@192.168.1.100
+Bu işlem tamamlandıktan sonra, parola girmeden SSH ile bağlanabilirsiniz.
+
+SSH Yapılandırma Dosyası
+SSH yapılandırma ayarları genelde /etc/ssh/sshd_config dosyasında bulunur. Bu dosya üzerinde çeşitli SSH ayarlarını yapabilirsiniz. Örneğin, SSH portunu değiştirmek, root oturumlarını kapatmak gibi yapılandırmalar bu dosya üzerinde yapılabilir:
+
+sudo nano /etc/ssh/sshd_config
+Dosya içeriğinde, Port ayarını bulup düzenleyerek port numarasını değiştirebilirsiniz:
+
+Port 2222
+Değişiklikleri yaptıktan sonra SSH servisini yeniden başlatmanız gerekecektir:
+
+sudo systemctl restart ssh
+Bu bölümde SSH kullanımı hakkında temel bilgileri öğrendik. Şimdi, SSH ile ağ üzerinde güvenli bağlantılar kurabilir ve uzaktaki sunucuları yönetebilirsiniz.
+
+Bu değişiklikler ile ağ yönetimi bölümünüz kapsamlı bir şekilde güncellenmiş oldu.
