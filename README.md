@@ -1254,3 +1254,768 @@ sudo systemctl restart ssh
 Bu bölümde SSH kullanımı hakkında temel bilgileri öğrendik. Şimdi, SSH ile ağ üzerinde güvenli bağlantılar kurabilir ve uzaktaki sunucuları yönetebilirsiniz.
 
 Bu değişiklikler ile ağ yönetimi bölümünüz kapsamlı bir şekilde güncellenmiş oldu.
+
+
+
+
+Ağ Türleri
+
+Ağlar kullanım amacına göre ve boyutuna göre kategorize edilmektedir. Örneğin, bir ağın boyutu bir evde veya küçük bir işletmede olabilirken, diğer bir ağ ise büyük bir kurumsal ortamda veya geniş bir coğrafi alanı kapsayabilir. LAN, MAN ve WAN, kapsadıkları alan üzerinde çalışmak üzere tasarlanmış üç ana ağ türüdür. Aralarında bazı benzerlikler ve farklılıklar vardır. En önemli farklardan biri kapsadıkları coğrafi alandır, LAN bir evi veya binayı, MAN şehir'i, WAN ülkeler hatta kıtaları kapsayabilir.
+
+Local Area Network (LAN)
+
+Local Area Network (LAN), coğrafi olarak sınırlı bir alanı kapsayan bir bilgisayar ağıdır. Bu ağ türü, genellikle bir ev, ofis veya  bina içindeki cihazları birbirine bağlamak için kullanılır. LAN'lar, cihazlar arasında hızlı veri transferi, kaynak paylaşımı (örneğin yazıcılar ve dosyalar) ve uygulamaların ağ üzerinden erişilebilir olmasını sağlar.
+
+Küçük bir alanı kapsar, bu yüzden yüksek hızlı veri transferi yapabilirler.
+Genellikle Gbps (Gigabit per second) düzeyinde veri transfer hızları sunar.
+Ağa bağlı cihazlar, yazıcılar, dosyalar ve diğer ağ kaynakları gibi ortak kaynakları paylaşabilir.
+Ağdaki verilerin korunması ve izinsiz erişimin önlenmesi için güvenlik protokolleri veya ağ güvenlik cihazları kullanılabilir.
+Wide Area Network(WAN)
+
+Wide Area Network (WAN), geniş coğrafi alanlarda dağılmış olan bilgisayarları ve ağları birbirine bağlayan bir ağ türüdür. WAN'lar, şehirler, ülkeler hatta kıtalar arası iletişimi mümkün kılarak, uzaktaki ağları birleştiren ve büyük mesafelerde veri, ses ve video gibi bilgilerin iletilmesini sağlayan geniş kapsamlı ağlardır.WAN'lar, çok geniş bir alanı kapsadıkları için, internetin kendisi de aslında bir çeşit WAN olarak düşünülebilir.
+
+WAN'lar, LAN'ların aksine, çok geniş coğrafi alanlarda hizmet verir.
+WAN ağında, fiber optik kablolar, uydu bağlantıları, telefon hatları gibi çeşitli iletişim teknolojileri kullanılabilir.
+Geniş coğrafi alanları kapsadığı için WAN'ların kurulumu ve bakımı genellikle yüksek maliyetlidir.
+WAN'lar, LAN'lara göre daha düşük veri transfer hızları sunar, çünkü veriler çok daha uzun mesafeler kat eder.
+WAN'lar, küresel ölçekte iletişim ve kaynak paylaşımı sağlar.
+Metropolitan Area Network(MAN)
+
+Metropolitan Area Network (MAN), şehir ölçeğindeki bir coğrafi alanda dağılmış olan bilgisayar ağlarını ve cihazlarını birbirine bağlayan bir ağ türüdür. MAN ağı, genellikle birkaç binadan oluşan bir üniversite kampüsü, bir şehrin çeşitli bölümleri ya da birkaç yakın şehri kapsayabilir. WAN ve LAN arasında bir yerde konumlanan MAN'lar, bölgesel veri iletişimi ihtiyaçları için idealdir.
+
+MAN'lar genellikle bir şehir kadar geniş bir alana yayılır ve kilometrelerce mesafeyi kapsayabilir.
+MAN'lar, geniş bant genişliği ve yüksek hızlı veri iletimi sağlayarak, büyük dosyaların ve verilerin hızlı bir şekilde transfer edilmesine olanak tanır.
+Farklı kuruluşlar ve kullanıcılar, MAN üzerinden kaynakları (yazılım, donanım, veri depolama vb.) paylaşabilir.
+Bir MAN, ihtiyaçlara göre kolayca genişletilebilir ve özelleştirilebilir.
+Şehir yönetimleri, kamu güvenliği, sağlık hizmetleri ve eğitim kurumları gibi kamu hizmetlerinin entegrasyonu için MAN'ları tercih eder.
+MAN kurulumu ve yönetimi genellikle internet servis sağlayıcıları (ISS) veya büyük kuruluşların IT departmanları tarafından yapılır.
+Internet/Intranet Ağı
+
+Internet
+Internet, dünya çapında milyarlarca cihazı birbirine bağlayan geniş bir ağdır. Bu ağ üzerinde veri alışverişi, bilgi paylaşımı, iletişim ve birçok çevrimiçi işlem gerçekleştirilebilir. Internet, farklı coğrafi konumlardaki kullanıcıların ve sistemlerin birbiriyle etkileşime geçmesini sağlayan küresel bir ağ altyapısına sahiptir.
+
+Intranet
+Intranet, bir organizasyon veya kuruluş içinde sınırlı kullanıcı grubuna özel olarak tasarlanmış özel bir ağdır. Genellikle şirket bilgileri, çalışan kaynakları ve iç iletişim araçları gibi kurumsal kaynaklara erişim sağlamak için kullanılır. Intranet, Internet'in aksine, genel erişime kapalıdır ve yalnızca belirli kullanıcıların erişimine izin verir
+
+
+Ağ topolojisi
+
+Ağ topolojisi, bir ağdaki cihazların (bilgisayarlar, yazıcılar, sunucular vb.) birbirine bağlanma şeklini ve iletişim kurma yolunu tanımlar. Hem fiziksel bağlantıları (kablolar, Wi-Fi, vb.) hem de mantıksal yapıları (veri akışı, sinyal yolu) içerir.
+
+Star Topoloji
+Tüm cihazlar merkezi bir noktaya, genellikle bir hub veya switch'e bağlanır. Bu merkezi nokta, ağdaki tüm iletişimin merkezidir.
+
+Yeni cihazlar kolayca eklenebilir, arızalı cihazlar ağı etkilemeden çıkarılabilir.
+Tek bir cihazın arızalanması, ağın geri kalanını etkilemez.
+Merkezi cihaz arızalandığında, tüm ağ etkilenir.
+Ev ağları, küçük ofislerlerde kullanılır
+Ring Topoloji
+Halka topolojisinde, her cihaz yalnızca iki komşusuyla bağlantılıdır ve bir halka oluşturacak şekilde dizilirler. Veriler, halka boyunca tek yönde akar.
+
+Veri paketleri belirli bir yönde ilerler, çarpışmaları azaltır.
+Her cihaz yalnızca iki bağlantıya ihtiyaç duyar.
+Tek bir noktadaki arıza tüm ağı etkileyebilir.
+Ağı genişletmek için halkayı kesmek gerekir, bu da karmaşıklık yaratır.
+Metro ağları ve bazı Lan ağlarında kullanılır.
+Bus Topoloji
+Bus topolojisinde, tüm cihazlar tek bir iletim hattına, genellikle bir koaksiyel kablo üzerine bağlanır. Bu yapı, verilerin her iki yöne de akmasına olanak tanır.
+
+Tek bir iletim hattı kullanıldığı için kablo maliyeti düşüktür.
+Tüm cihazlar aynı iletim hattını paylaşır.
+Kablo hasar gördüğünde, hatanın kaynağını bulmak zor olabilir.
+Küçük ağlar, geçici veya basit kurulum gerektiren ağlarda tercih edilir.
+Tree Topoloji
+Tree topolojisi, yıldız topolojilerinin bir hiyerarşi içinde birleşimi şeklinde düzenlenir. Bir merkezi kökten dallanarak alt ağlar oluşturulur.
+
+Yeni dallar eklemek kolaydır.
+Ağ hiyerarşik olduğu için alt ağlar kolayca yönetilebilir.
+Üst düzeydeki cihazların arızalanması, altındaki ağları etkiler.
+Ağ büyüdükçe, kablo ihtiyacı artar.
+Büyük kurumsal ağlar, geniş kampüs ağlarında kullanılır
+Mesh Topoloji
+Mesh topolojide, cihazlar arasında birçok bağlantı yolu vardır. Tam örgüde, her cihaz doğrudan diğer her cihazla bağlantılıdır. Kısmi örgüde ise, bazı cihazlar birden fazla bağlantıya sahiptir, ancak her cihaz her cihazla doğrudan bağlantılı değildir.
+
+Birden fazla yol arasında seçim yaparak, tek bir noktadaki arıza ağı etkilemez.
+Veriler, en verimli yolu takip ederek hedefine ulaşır.
+Her cihazın birden fazla bağlantısı olması nedeniyle, kablo ve cihaz maliyeti artar.
+Kritik iletişim ağları, veri merkezlerinde kullanılır
+Peer to peer (P2P) Topoloji
+Peer to peer  topolojide, her cihaz diğerleriyle eşit yetkilere sahiptir ve doğrudan iletişim kurabilir. Bu yapı, merkezi bir yönetim veya sunucu gerektirmez.
+
+Yeni cihazlar kolayca eklenebilir ve ağa entegre edilebilir.
+Merkezi bir sunucuya veya özel donanıma ihtiyaç duymaz.
+Eşler arası ağlarda güvenlik ve yönetim daha karmaşık olabilir.
+Büyük ağlarda, kaynakların eşit dağılımı zorlaşabilir.
+Dosya paylaşımı, blockchain teknolojileri, bazı dağıtık uygulamalarda kullanılır.
+Hybrid Topoloji
+Hibrit topoloji, iki veya daha fazla farklı topolojinin birleşimidir. Bu yapı, farklı topolojilerin avantajlarını birleştirerek karmaşık ihtiyaçlara çözüm sunar.
+
+Farklı topolojilerin avantajlarından yararlanılabilir.
+İhtiyaçlara göre kolayca genişletilebilir veya özelleştirilebilir.
+Farklı topolojilerin entegrasyonu yönetimi zorlaştırabilir.
+Hibrit yapılar genellikle daha pahalıdır.
+Büyük kurumsal ağlar, karmaşık ağ ihtiyaçları olan kuruluşlar tarafından tercih edilir.
+
+
+
+İletişim Modları ve Türleri
+
+İletişim Modları
+
+Bilgisayar ağlarında iletişim modları, bilgisayarların ve diğer cihazların birbiriyle nasıl veri alışverişinde bulunduğunu tanımlar. İletim modu üç kategoriye ayrılmıştır:
+
+Simpleks
+Veri, sadece bir yönde akar. Gönderici, veriyi sürekli olarak alıcıya aktarırken, alıcı sadece veriyi alır ve geriye veri göndermez.Klavye ve Monitör, klavyenin yalnızca kullanıcıdan gelen verileri kabul edebilmesi ve monitörün yalnızca verileri ekranda görüntülemek için kullanılabilmesi nedeniyle simpleks iletişin modunun örnekleridir.
+
+Half Duplex
+Half dublex iletişim modunda, veriler her iki yönde de aktarılabilir, ancak bu aktarım aynı anda gerçekleşmez. Bir cihaz veri gönderirken, diğer cihaz veriyi alır ve sonra roller değişir. Bu iletişim türü, sınırlı bant genişliğine sahip ortamlarda etkilidir.Telsiz , Yarı çift yönlü modun bir örneğidir. 
+
+Full Duplex
+Full duplex iletişim modu, verilerin her iki yönde de aynı anda serbestçe akmasına olanak tanır. Bu, eş zamanlı iletişimi mümkün kılar ve en etkili iletişim modlarından biridir. Telefon görüşmeleri ve internet üzerinden yapılan canlı sohbetler, bu iletişim modunun örneklerindendir.
+
+İletişim Türleri
+
+Unicast
+Unicast iletimi, ağ üzerinde tek bir göndericiden tek bir alıcıya veri gönderimi anlamına gelir. Bu, en yaygın kullanılan iletim modudur ve internet üzerindeki çoğu veri iletimi bu şekilde gerçekleşir.
+Bir web sunucusundan bilgisayarınıza bir web sayfası yüklenmesi unicast bir iletimdir.
+Multicast
+Multicast iletimi, tek bir göndericiden belirli bir grup alıcıya veri gönderimi anlamına gelir. Aynı verinin birden fazla alıcıya ulaştırılması gerektiğinde verimli bir yöntemdir.
+Canlı bir video yayını, multicast iletimi kullanılarak aynı anda birçok izleyiciye ulaştırılabilir.
+Broadcast
+Broadcast iletişimi, ağ üzerindeki tek bir göndericiden ağdaki tüm alıcılara veri gönderimi anlamına gelir. Gönderilen verinin ağdaki her cihaza ulaşması gerektiğinde kullanılır.
+Bir ağ cihazı tarafından DHCP isteği gönderimi, genellikle broadcast iletimi kullanılarak yapılır, çünkü bu istek ağdaki tüm cihazlara ulaşmalıdır.
+
+
+
+Bilgisayar Ağ Modelleri
+
+Bilgisayar ağ modelleri, bilgisayarların birbiriyle nasıl iletişim kuracağını ve veri alışverişi yapacağını belirleyen kurallar ve protokoller bütünüdür. Bu modeller, ağın nasıl tasarlanacağını, verilerin nasıl paketleneceğini, iletilip alınacağını ve hataların nasıl düzeltilip yönetileceğini tanımlar. Ağ teknolojilerinin karmaşıklığını basitleştirerek bu teknolojileri daha iyi anlaşılması sağlanır.
+
+Farklı katmanlar halinde düzenlenmiş modeller sayesinde, her bir katmanın işlevselliği bağımsız olarak incelenebilir ve tasarlanabilir. Bu ağ modelleri, farklı üreticiler tarafından geliştirilen ağ cihazları ve yazılımlarının birbiriyle uyumlu şekilde çalışabilmesi için bir standart sağlar. En yaygın iki model OSI (Open Systems Interconnection) ve TCP/IP'dir.
+
+Bilgisayar Ağlarının Temel Bileşenleri
+Ağ Araçları (Network Devices): Ağ kartları, modeller, switchler, routerlar gibi cihazlar veri iletimi ve yönlendirilmesi işlevlerini yerine getirir.
+İletim Ortamları (Transmission Media): Bakır kablolar, fiber optik kablolar ve kablosuz bağlantılar gibi fiziksel veya sanal ortamlar, ağ cihazları arasında veri iletimini sağlar.
+Protokoller (Protocols): TCP/IP, HTTP, FTP, SMTP gibi protokoller, ağ üzerinden veri iletimi için gerekli kuralları ve standartları belirler.
+Ağ Yazılımları (Network Software): İşletim sistemleri ve ağ yönetim yazılımları, ağ cihazlarının etkileşimini ve veri akışını yönetir.
+Ağ Modellemesi ve Standartlar
+Ağ modellemesi, ağın nasıl çalıştığını anlamak ve tasarlamak için kullanılan soyut bir yaklaşımdır. Modelleme, ağın farklı yönlerini katmanlar halinde düzenleyerek, karmaşıklığı azaltır ve standartlaştırma sağlar. Bu katmanlar, ağın farklı işlevlerini temsil eder ve birbirleriyle belirlenen kurallar (protokoller) aracılığıyla iletişim kurar.
+
+Standartlar, ağ cihazlarının ve yazılımlarının birbirleriyle uyumlu bir şekilde çalışabilmesi için gerekli olan teknik özellikleri ve protokolleri belirler. Bu standartlar, farklı üreticilerden gelen cihazların ve yazılımların birlikte çalışabilmesini sağlayarak, ağların genişletilmesi ve entegrasyonu konusunda büyük kolaylıklar sunar.
+
+Ağ Protokolleri ve İletişim
+Ağ protokolleri, ağ üzerinden veri iletimi sırasında uygulanan kurallar ve standartlardır. Protokoller, veri paketlerinin nasıl oluşturulacağını, adreslendirileceğini, iletilip alınacağını ve hataların nasıl kontrol edileceğini belirler. Bu protokoller, ağın farklı katmanlarında yer alır ve her katman, belirli görevleri yerine getirir.
+
+Ağ iletişimi, veri paketlerinin bir kaynaktan hedefe doğru yolculuğunu içerir. Bu süreç, verilerin katmanlardan geçirilerek uygun biçimlere dönüştürülmesi, hedefe iletilmesi ve sonunda tekrar orijinal veriye dönüştürülmesi işlemlerini kapsar.
+
+OSI Modeli
+OSI (Open Systems Interconnection) modeli, uluslararası standartlar kuruluşu olan ISO tarafından geliştirilmiştir. Amaç, farklı sistemlerin birbiriyle uyumlu bir şekilde iletişim kurabilmesini sağlamaktır. OSI modeli yedi katmandan oluşur:
+
+Fiziksel Katman (Physical Layer): Donanım düzeyindeki iletişimi, kablolar, kartlar ve diğer fiziksel yapılar üzerinden veri aktarımını sağlar.
+Veri Bağlantı Katmanı (Data Link Layer): Ağ üzerindeki veri akışını düzenleyerek, verilerin doğru adreslere ulaşmasını sağlar. MAC (Media Access Control) adreslerini kullanır.
+Ağ Katmanı (Network Layer): Verilerin farklı ağlar arası iletimini yönetir. Bu katmanda IP adresleri ve yönlendirme işlemleri bulunur.
+Taşıma Katmanı (Transport Layer): Uçtan uca iletişimi yönetir ve veri aktarımının güvenilirliğini sağlar. TCP (Transmission Control Protocol) ve UDP (User Datagram Protocol) bu katmanda yer alır.
+Oturum Katmanı (Session Layer): İletişim oturumlarını yönetir, bağlantıların başlatılmasını ve sonlandırılmasını kontrol eder.
+Sunum Katmanı (Presentation Layer): Verilerin ağ üzerinden nasıl temsil edileceğini yönetir. Şifreleme ve sıkıştırma işlemleri bu katmanda gerçekleşir.
+Uygulama Katmanı (Application Layer): Kullanıcıların ağ üzerindeki uygulamalarla etkileşime geçebilmesini sağlar. E-posta, web tarayıcıları ve diğer uç kullanıcı uygulamaları bu katmanda yer alır.
+TCP/IP Modeli
+TCP/IP modeli, internetin temelini oluşturan ve günümüzde en yaygın kullanılan ağ modelidir. OSI modeline göre daha basit bir yapıya sahiptir ve dört katmandan oluşur:
+
+Ağ Arayüzü Katmanı (Network Interface Layer): Fiziksel ve veri bağlantı katmanlarının işlevlerini birleştirir ve donanım üzerinden veri iletimini sağlar.
+İnternet Katmanı (Internet Layer): Ağ katmanına karşılık gelir ve IP adreslerini kullanarak verilerin yönlendirilmesini sağlar.
+Taşıma Katmanı (Transport Layer): OSI modelindeki gibi uçtan uca iletişimi yönetir ve TCP ile UDP protokollerini içerir.
+Uygulama Katmanı (Application Layer): OSI modelindeki oturum, sunum ve uygulama katmanlarının işlevlerini birleştirir. Kullanıcıların ağ uygulamalarıyla etkileşimini sağlar.
+Her iki model de ağ tasarımı ve veri iletişimi konusunda temel prensipleri sağlar, ancak TCP/IP modeli pratikte daha yaygın kullanılmaktadır. OSI modeli ise eğitim ve teorik anlamda ağ kavramlarını anlamada yardımcı olur.
+
+
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/634c04be-ed2c-43a1-99c8-5162bd190d73/osi-encapsulation-DeEncapsulation-2-5d7a355a0.webp<img width="740" height="366" alt="image" src="https://github.com/user-attachments/assets/04d0cf4a-4f7e-47ec-a673-59617af30f8b" />
+
+OSI Modeli
+
+
+
+OSI modeli, Uluslararası Standardizasyon Örgütü (ISO) tarafından 1984 yılında geliştirilmiş olup, günümüzde bilgisayarlar arası iletişimin mimari modeli olarak kabul edilmektedir. Bu model, veri iletim ve alımı sürecini yedi katmana ayırarak, her bir katmanın belirli görevleri yerine getirmesini ve birbirleriyle nasıl etkileşime gireceğini tanımlar. OSI modelinin amacı, farklı sistemlerin ve teknolojilerin birbiriyle uyumlu şekilde çalışabilmesi için bir çerçeve sunmaktır.
+
+
+
+Üst Katmanlar: Kullanıcılar ve programlar, bu katman aracılığıyla birbirleriyle haberleşdiği katmanlardır. Yani üst katmanlar, yazılım tarafından gerçekleştirilen işlemlerdir. Uygulama, sunum, oturum katmanları üst katmandır.
+
+Alt Katmanlar: Verinin nasıl taşınacağıyla ilgili katmanlardır. Verinin bir bilgisayardan diğerine fiziksel olarak nasıl aktarılacağıyla ilgilenir. Fiziksel, veri bağlantı, ağ ve taşıma katmanları alt katmandır.
+
+1) Fiziksel katman (Physical Layer)
+Verinin fiziksel olarak hat üzerinden bitler halinde bir noktadan diğerine taşımak için gerekli olan islevleri kapsar.
+OSI modelinin en alt katmanıdır.
+Kablo, konnektör standartlari bu katmandadır. (UTP, RJ45, RS-232C, V.35 ve diger port standartlar).
+İki veya daha fazla cihazın fiziksel olarak nasıl bağlanabileceğini tanımlanır.
+Ağdaki iki cihaz arasındaki iletim modunun simpleks, half-duplex veya full-duplex mod olacağını tanımlanır.
+Donanım örnekleri ağ bağdaştırıcıları , tekrarlayıcılar, ağ hub'ları vb.'dir.
+2) Veri Bağlantı Katmanı (Data Link Layer)
+Ağ üzerinden bilgisayarlar veya ağ cihazları arasındaki veri aktarımını güvenilir bir şekilde gerçekleştiren katmandır. Verilerin çerçeveleme, adresleme (MAC adresleri ile) ve doğru adrese ulaşmasını ve veri iletiminde oluşabilecek hataların tespit işlemlerini gerçekleştirir.
+Veri göndermek isteyen bir cihazdan gelen veriyi alır. Sonra, bu veriyi çerçevelere bölerek her çerçevenin başına ve sonuna, çerçevenin nereye gitmesi gerektiğini (adresleme) ve çerçevenin doğruluğunu kontrol etmeye yarayan bilgiler (hata kontrolü) ekler. Daha sonra, bu çerçeveler ağ üzerinden alıcı cihaza gönderilir.Alıcı cihazda, Veri Bağlantı Katmanı gelen çerçeveleri alır, hata kontrolü yapar ve veriyi doğru sırayla üst katmana (Ağ Katmanı) iletir. Eğer bir hata tespit edilirse, bu katman hatanın düzeltilmesi için gerekli işlemleri yapar.
+Çerçeveleme: Gönderilen veriyi "çerçeve(frame)" halinde paketler. Veri paketlerinin başlangıç ve bitiş noktalarını belirler, böylece alıcı veriyi doğru bir şekilde algılayabilir.
+Adresleme: Her ağ cihazı, bu katmanda kendine özgü bir fiziksel adres (MAC adresi) kullanır. Veri Bağlantı Katmanı, verinin doğru cihaza ulaşmasını sağlamak için bu adresleri kullanır.
+Hata Kontrolü: Veri iletimi sırasında çeşitli hatalar meydana gelebilir. Veri Bağlantı Katmanı, iletilen çerçevelerdeki hataları tespit edebilir ve bazı durumlarda bu hataları düzeltebilir.
+Akış Kontrolü: Veri akışını kontrol ederek alıcının fazla miktarda veri ile gelmesini önler. Veri gönderimi ve alımı arasında bir denge sağlar.
+3) Ağ Katmanı
+
+Farklı ağlar arasındaki veri iletimini yönetir.Mantıksal adresleme (IP adresleri), yönlendirme ve paketleme işlemlerinden sorumludur.
+Bir veri paketi gönderildiğinde, Ağ Katmanı, paketin hedefine ulaşmak için takip etmesi gereken yolu belirler. Bu yol, bir dizi ağ geçidi veya yönlendirici(router) üzerinden geçebilir. Her bir geçiş noktasında, Ağ Katmanı, paketin bir sonraki varış noktasını belirler. Bu işlem, paket hedefine ulaşana kadar devam eder.
+Ağ trafiğini yönlendirmek için kullanılan protokollere Ağ katmanı protokolleri denir. Protokol örnekleri IP ve Ipv6'dır.
+Yönlendirme (Routing): Ağ Katmanı, veri paketlerinin kaynaktan hedefe giden yolu belirler. Bu işlem, çeşitli yönlendirme algoritmaları kullanılarak gerçekleştirilir ve ağın durumuna göre en uygun yolun seçilmesini sağlar.
+Adresleme: Her cihazın ağ üzerinde benzersiz bir adresi (IP adresi gibi) vardır. Bu adresleri kullanarak veri paketlerinin doğru hedeflere ulaşmasını sağlar.
+Paketleme: Veri, bu katmanda daha küçük birimler olan paketlere bölünür. Her paket, hedef adres gibi önemli kontrol bilgilerini içeren bir başlık eklenir.
+Hata Tespiti ve Düzeltme: Paketlerin kaybı veya hatalı iletimi gibi sorunları tespit eder ve üst katmanlara bilgi verir.
+Yönlendiriciler katman 3 cihazlarıdır, bu katmanda belirtilirler ve bir ağlar arası yönlendirme hizmetlerini sağlamak için kullanılırlar.
+4) Taşıma Katmanı
+
+Taşıma katmanı, uçtan uca veri iletiminin güvenilirliğini, eksizliğini ve verimliliğini ve sağlar.
+Bu süreçler sırasında, veri akış kontrolü, hata kontrolü ve tıkanıklık kontrolü gibi işlemler yapılır.
+Verileri üst katmandan alır ve bunları segment adı verilen daha küçük birimlere dönüştürür.
+Taşıma Katmanı, üst katmandan(Oturum katmanı) gelen veriyi alır segmentlere böler ve her segmente, hedef bilgileri ve sıra numaraları gibi kontrol bilgileri eklenerek ağ katmanına iletilir.
+Ağ Katmanından, gelen segmentleri alır, yeniden birleştirir ve üst katmana(Oturum katmanı) iletir.
+Segmentasyon ve yeniden birleştirme: Taşıma katmanı mesajı üst katmandan aldığında, mesajı birden fazla segmente ayırır ve her segmente, her segmenti benzersiz şekilde tanımlayan bir sıra numarası atanır. Mesaj hedefe ulaştığında, taşıma katmanı mesajı sıra numaralarına göre yeniden birleştirir.
+Bağlantı kontrolü: Taşıma katmanı iki hizmet sağlar Bağlantı odaklı hizmet ve bağlantısız hizmet. Bağlantısız bir hizmet, her segmenti ayrı bir paket olarak ele alır ve hepsi hedefe ulaşmak için farklı rotalarda seyahat eder. Bağlantı odaklı bir hizmet, paketleri teslim etmeden önce hedef makinedeki taşıma katmanıyla bağlantı kurar. Bağlantı yönelimli hizmette tüm paketler tek bir rotada hareket eder.
+Hata kontrolü: Taşıma katmanı aynı zamanda Hata kontrolünden de sorumludur. Hata kontrolü tek bağlantı yerine uçtan uca gerçekleştirilir. Gönderici taşıma katmanı, mesajın hedefe hatasız ulaşmasını sağlar.
+
+
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/634c04be-ed2c-43a1-99c8-5162bd190d73/osi-model-921d34ed6.webp<img width="750" height="495" alt="image" src="https://github.com/user-attachments/assets/757f93f0-7df8-46c8-b80c-7321396df8ef" />
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/634c04be-ed2c-43a1-99c8-5162bd190d73/osi-ncapsulation-DeEncapsulation-afade08f0.webp<img width="728" height="305" alt="image" src="https://github.com/user-attachments/assets/13c7c47e-824a-464b-a91d-9550ad486ef3" />
+
+
+
+
+
+TCP/IP Modeli
+
+TCP/IP modeli, ağ iletişimi için temel bir çerçeve sağlayan ve internetin temelini oluşturan bir modeldir.
+"Transmission Control Protocol/Internet Protocol" kelimelerinin kısaltmasıdır ve OSI modeline benzer şekilde, ağ üzerindeki veri iletim sürecini katmanlar halinde düzenler.
+OSI modelinden önce geliştirilmiştir. Daha basitleştirilmiş bir yapıya sahiptir ve dört katmandan oluşur. Bu katmanlar, uygulama, taşıma, internet ve ağ erişim katmanlarıdır.
+Her katman, ağ iletişiminin farklı bir yönünü ele alır ve bir üst katmana hizmetler sağlar.
+TCP/IP, adını iki ana protokolden alır: TCP (Transmission Control Protocol) ve IP (Internet Protocol), sırasıyla Taşıma ve İnternet katmanlarının temel protokolleridir.
+TCP/IP Protokolünde veri akışı:
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/tcp-data-flow-76501ca5b.webp<img width="500" height="258" alt="image" src="https://github.com/user-attachments/assets/80bab4c2-ebf2-458c-8f73-1f6e5296580a" />
+
+Uygulama katmanı
+
+Uygulama katmanı, TCP/IP modelinde en üstteki katmandır.
+Son kullanıcının ağ üzerindeki uygulamalarla etkileşime geçebilmesi için gerekli olan arayüzleri ve protokolleri sağlar. Web tarayıcıları, e-posta istemcileri ve çevrimiçi oyunlar gibi uygulamalar, Uygulama Katmanı'ndaki protokoller sayesinde çalışır.
+Uygulama katmanında kullanılan bazı protokoller:
+HTTP/HTTPS: Hyper Text Transfer Protokol(HTTP) ve Secure Hyper Text Transfer Protokol (HTTPS) internetin temelini oluşturur. İnternet tarayıcıları ve sunucular arasındaki iletişimi yönetmek için kullanılır. HTTPS, HTTP-Secure anlamına gelir. HTTP ile kriptolama protokolü olan SSL (Secure Socket Layerı) birleşimidir. Oturum açma,kimlik doğrulama gibi işlemlerin gerektiği durumlarda iletişimi şifreleyerek iletişimin güvenliğini sağlar.
+SNMP:  Simple Network Management Protocol(SNMP),  TCP/IP protokol paketini kullanarak ağ cihazlarını(router,switch vb.) yönetmek için kullanılan bir çerçevedir.
+SMTP: Simple Mail Transfer Protocol(SMTP), e-posta mesajları göndermek ve almak için kullanılan bir iletişim protokolüdür
+DNS: İnternete bir bilgisayarı yada internet sitesini bağlantısını benzersiz bir şekilde tanımlamak için bir IP adresi kullanılır. Bu karmaşık IP adresi yerine adlandırılır. Domain Name System(DNS) de alan adlarını IP adreslerine çevirerek internet kaynaklarına erişebilmesini sağlar.
+TELNET: Telecommunication Network(TELNET) Yerel bilgisayar ile uzak bilgisayar arasında terminal bağlantısı kurulmasını sağlar.
+SSH: Secure Shell(SSH) ağ cihazlarına ve sunucularına erişmek için kullanılır. SSH TELNET protokolü temel farkı trafiği her iki yönde de şifreleyerek veri güvenliğini sağlar.
+FTP: File Transfer Protocol(FTP), dosyaları bir bilgisayardan başka bir bilgisayara aktarmak için kullanılır.
+Taşıma katmanı
+
+Uçtan uca iletişiminden sorumludur. Veri akışını kontrol eder ve veri paketlerinin sıralı bir şekilde iletildiği katmandır.
+İki ana protokol kullanılır:
+Transmission Control Protocol(TCP)
+Bir TCP paketi, header(başlık) ve data(veri) olmak üzere iki ana bölümden oluşur.
+
+TCP Segment Formatı
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/tcpsegment-b8f04ce25.webp<img width="571" height="386" alt="image" src="https://github.com/user-attachments/assets/041ae798-2b25-43a0-9132-3c145df18476" />
+
+
+Header(Başlık): TCP paketi başlangıcında yer alır ve en az 20 bayttan oluşur. Başlık, veri iletimini kontrol etmek ve yönetmek için gerekli birçok kontrol bilgisini içerir.
+
+Source(Kaynak) Port: İletişimi başlatan istemci cihazın kullandığı port numarasıdır. Source port numarası, gönderen cihazın hangi uygulamasının veri gönderdiğini belirtir.
+Destination(Hedef) Port: : İletişimin hedefindeki bilgisayarın kullandığı port numarasıdır. Hedef port numarası, alıcı cihazdaki hedef uygulamanın tanımlayıcısıdır. Örneğin, web sunucuları - genellikle HTTP için 80, HTTPS için 443 port numaralarını kullanır.
+Sequence Number(Sıra Numarası): Segmentin akışındaki sırasını belirler, verilerin doğru sırada yeniden birleştirilmesini sağlar.
+Acknowledgment Number (Onaylama Numarası): Alınan segmentin sıra numarasını onaylar.
+Header Length(Başlık Uzunluğu): Başlığın uzunluğunu belirtir ve genellikle 20-60 bayt arasındadır.
+Flags(Bayraklar): Bağlantının kurulması, yönetilmesi ve sonlandırılması için kullanılan kontrol sinyallerini içerir. Örneğin, SYN, ACK, FIN.
+Window Size(Pencere Boyutu): Alıcı tarafın alabileceği veri miktarını belirler, ağ tıkanıklığını önlemeye yardımcı olur.
+Checksum(Hata Sınama Biti): Veri paketin hata kontrolünü sağlar.
+Urgent Pointer(Acil İşaretçisi): Acil verilerin varlığını ve sıralamasını belirtir.
+Data(Veri): Başlıktan sonra gelen bölüm, uygulama katmanından gelen asıl verileri içerir. Bu bölümün boyutu, ağın MTU (Maximum Transmission Unit) değerine ve başlığın uzunluğuna bağlı olarak değişebilir.
+
+Ağ üzerinde iki cihaz arasında güvenilir bir bağlantı kurulmasını sağlayan bir süreçtir. Bu işlem, veri iletiminin doğru ve güvenilir bir şekilde gerçekleşmesini garantiler.Hatalı veya eksik paketleri algılayıp yeniden ilettiği için güvenilir bir protokoldür.
+
+Gönderim sonunda TCP, mesajın tamamını segment olarak bilinen daha küçük birimlere böler ve her segment, çerçevelerin orijinal bir mesaj oluşturacak şekilde yeniden düzenlenmesi için gereken bir sıra numarası içerir. Alıcı tarafta TCP tüm veri paketlerini toplar ve sıra numaralarına göre yeniden sıralar.
+
+TCP Three-Way Handshake
+Three-Way Handshake, TCP/IP protokolü kullanılarak bir ağ üzerinde iki cihaz arasında güvenilir bir bağlantı kurulmasını sağlayan bir süreçtir. Bu işlem, veri iletiminin her iki uçta da doğru ve güvenilir bir şekilde gerçekleşmesini garantiler. Three-Way Handshake işlemi üç ana adımdan oluşur:
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/tcp-three-way-handshake-ef54efadc.webp<img width="866" height="860" alt="image" src="https://github.com/user-attachments/assets/fec87f5b-928e-47ea-bea7-08bb7a7e8f64" />
+
+
+1.Adım: SYN (Synchronize Sequence Numbers)
+İstemci, sunucuya bir SYN paketi göndererek bağlantı isteği gönderir. Bu paket, bağlantının kurulması için gerekli olan parametreleri içerir ve istemcinin başlangıç dizilim numarasını (sequence number) taşır. Bu numara, gönderilen her paketin sırasını belirlemek için kullanılır ve veri iletimindeki bütünlüğü sağlar.
+2.Adım: SYN-ACK (Synchronize-Acknowledgment)
+Sunucu, istemcinin SYN paketini alır ve bağlantı kurma isteğini kabul ederse, bir SYN-ACK paketi geri gönderir. Bu paket, sunucunun kendi başlangıç dizilim numarasını ve istemcinin dizilim numarasının bir sonraki değerini onaylayan bir onaylama (acknowledgment) numarasını içerir.
+3.Adım: ACK (Acknowledgment)
+İstemci, sunucunun SYN-ACK paketini alır ve bu paketi bir ACK (acknowledgment) paketi ile yanıtlar. Bu ACK paketi, sunucunun SYN-ACK paketinde belirtilen dizilim numarasının bir sonraki değerini onaylar.
+User Datagram Protokolü (UDP)
+Uygulamaların veri aktarımında kullandığı protokollerden biridir.
+Paketlerini taşımak için önceden bir bağlantı kurulmasına gerek duyulmaz.
+Verinin karşı tarafa iletilip iletilmediği kontrol edilmez.
+Kaybolan verinin tekrar gönderilmesi, akış kontrolü yoktur.
+Genel olarak ses ve video gönderiminde kullanılır
+UDP Segment Formatı
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/udpsegment-1b32f5f43.webp<img width="675" height="248" alt="image" src="https://github.com/user-attachments/assets/a49d97e3-e126-4b99-a52d-1f5dedb75c3c" />
+
+
+Başlık	Açıklama
+Source(Kaynak) Port	İletişimi başlatan istemci cihazın kullandığı port numarasıdır. Source port numarası, gönderen cihazın hangi uygulamasının veri gönderdiğini belirtir.
+Destination(Hedef) Port	İletişimin hedefindeki bilgisayarın kullandığı port numarasıdır.
+Length(Uzunluk)	Bayt cinsinden toplam bayt sayısını tanımlar.
+Checksum(Hata Sınama Biti)	Opsiyona bağlı hata kontrolünü sağlar.
+İnternet Katmanı
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/iplayer-e6604dcf4.webp<img width="500" height="306" alt="image" src="https://github.com/user-attachments/assets/30dedb52-1f03-493b-98c7-210edf013b22" />
+
+
+İnternet'in omurgasını oluşturur ve global veri iletiminin temelini sağlar.
+Bir üst katmandan gelen segmentleri alıcıya, uygun yoldan hatasız ulaştırılması sağlayan katmandır.
+Internet Protocol(IP) bu katmanın en önemli protokolüdür ve bu katman internet protokolü olarakda bilinir.
+Internet Protocol (IP) Protokolü:
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/ipencap-fda5fc6c1.webp<img width="664" height="566" alt="image" src="https://github.com/user-attachments/assets/76f11965-f43a-4ff0-a9a6-2424952791f8" />
+
+Her cihaz, IP adresi aracılığıyla tanımlanır. Bu adresleme, internet üzerindeki her cihazın benzersiz bir şekilde tanımlanmasını ve ulaşılabilir olmasını sağlar.
+Linux işletim sistemine sahip bilgisayara "ifconfig" komut ile bilgisayara atanan IP adresi görülebilir
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/ifconfig-1b09f1b3f.webp<img width="1380" height="404" alt="image" src="https://github.com/user-attachments/assets/c64492d2-a79e-4ae3-8ee9-1c973a67742c" />
+
+
+Veri paketleri, kaynak ve hedef IP adresleri kullanılarak, ağ üzerinde en uygun yol üzerinden yönlendirilir. Bu işlem, çeşitli yönlendirme protokolleri (RIP, OSPF, BGP) tarafından gerçekleştirilir.
+Taşıma katmanından gelen pakete IP başlığı ekleyerek adresleme yapar.
+IP Adresleme: Bu protokol, IP adresleri olarak bilinen mantıksal ana bilgisayar adreslerini uygular. IP adresleri internet ve daha üst katmanlar tarafından cihazı tanımlamak ve ağlar arası yönlendirme sağlamak için kullanılır.
+Host-to-host iletişimi: Verilerin iletileceği yolu belirler.
+Veri Kapsülleme ve Biçimlendirme: Bir IP protokolü, taşıma katmanı protokolünden gelen verileri kabul eder. Bir IP protokolü, verilerin güvenli bir şekilde gönderilip alınmasını sağlar ve verileri, IP datagramı olarak bilinen mesaja kapsüller.
+Parçalanma ve Yeniden Birleştirme: Veri bağlantısı katmanı protokolü tarafından IP datagramının boyutuna uygulanan sınır, Maksimum İletim birimi (MTU) olarak bilinir. IP datagramının boyutu MTU biriminden büyükse, IP protokolü datagramı yerel ağ üzerinde seyahat edebilmeleri için daha küçük birimlere böler. Parçalama gönderici veya ara yönlendirici tarafından yapılabilir. Alıcı tarafında tüm parçalar orijinal bir mesaj oluşturacak şekilde yeniden birleştirilir.
+Yönlendirme: IP datagramının LAN, MAN, WAN gibi aynı yerel ağ üzerinden gönderilmesine doğrudan dağıtım denir. Kaynak ve hedef uzak ağda olduğunda IP datagramı dolaylı olarak gönderilir. Bu, IP datagramının yönlendiriciler gibi çeşitli cihazlar aracılığıyla yönlendirilmesiyle gerçekleştirilebilir.
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/iprouting-fabbe7be8.webp<img width="500" height="204" alt="image" src="https://github.com/user-attachments/assets/92e20e86-ba97-4e15-be60-967e58397b8c" />
+
+
+Yukarıdaki görselde IP adresi ile router cihazları paket yönlendirmesi ile hedefe ulaşması gösterilmektedir.
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/iplayerdatagram-3c2b41a1b.webp<img width="377" height="278" alt="image" src="https://github.com/user-attachments/assets/ce53fe61-f6d2-4156-80e4-f349febbebda" />
+
+
+Yukarıdaki görselde, bir üst katmandan(taşıma katmanı) gelen bir TCP segmentine IP Başlığı eklendiğindeki hali verilmiştir.
+IP Datagram Formatı:
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/ipsegment-511c069cc.webp<img width="670" height="540" alt="image" src="https://github.com/user-attachments/assets/90dbdc2e-09c6-46f5-a16f-b35127b8ec33" />
+
+Alan	Açıklama
+Version	IP sürümünü tanımlar.IPv4, IPv6 vs.
+Internet Header Length (IHL)	Datagram başlığının gerçek uzunluğunu gösterir
+Type Of Service (TOS)	Paketlerin ağda nasıl önceliklendirileceğini ve işleneceğini belirtir. Düşük gecikme, yüksek bant genişliği, yüksek güvenilirlik veya düşük maliyet gibi seçenekler içerir. Günümüzde DSCP ve ECN alanları için kullanılır.
+Total Length (TL)	Datagramının bayt cinsinden toplam uzunluğunu belirtir.
+Identification	Veri parçaların her biri için 16 bitlik değer içerir. Alıcı tarafından veriyi yeniden birleştirmek için kullanılır.
+Flags	8 Byte'lik birimler halinde parçalarin (fragment) datagram içindeki konumunu gösterir. DF (Don't Fragment) yönlendiricilerden datagrami parçalara bölmemesini buyuran 1 bitlik bir istek alandir. Alicinin parçalar (fragment) birlestiremedigi durumlarda gereklidir. MF (More Fragment): Bir datagramin son parçasi disindaki tüm par-çalarinda MF = 1' dir.
+Fragment Offset	Bir mesajın parçalanması meydana geldiğinde, bu alan, genel mesajda bu parçadaki verilerin gittiği ofseti veya konumu belirtir
+Time To Live (TTL)	Datagramın ağda ne kadar süre dolaşmasına izin verildiğini belirtir. Her yönlendirici, TTL alanının değerini iletmeden önce azaltır (bir azaltır). TTL alanı sıfıra düşerse yok edilir
+Protocol	Bir datagramın hangi üst katman protokolüne ait olduğunu belirtir(TCP,UDP,ICMP). Alıcı IP katmanı bu lana bakarak paketi bir üstünde bulunan protokolerden hangisine ileteceğini anlar
+Header Checksum	Datagram başlığında bir bozulma olup olmadığını belirlemeye yara
+Source Address	Gönderici internet adresi (IP)
+Destination Address	Alıcı internet adresi (IP)
+Options	Opsiyonel olarak farklı amaçlar için kullanılır; güvenlik, hata raporlarma vs.
+Data	Bir üst katmandan(taşıma katması) gelen veridir
+Internet Control Message Protocol (ICMP) Protokolü
+Kontrol amaçlı bir protokoldur.
+ICMP mesajları IP protokolü üzerinden gönderilir.
+Alıcı cihazın aktif olmaması veya ağ tıkanıklığı gibi olağandışı koşullar nedeniyle verileri iletimiyorsa, göndericiye veri biriminin teslim edilemediğini bildirmek için ICMP protokolü kullanılır.
+Bir ICMP protokolü temel olarak iki terim kullanır:
+ICMP Testi: ICMP Testi hedefin ulaşılabilir olup olmadığını test etmek için kullanılır.
+ICMP Yanıtı: ICMP Yanıtı, hedef cihazın yanıt verip vermediğini kontrol etmek için kullanılır.
+ICMP protokolünün temel sorumluluğu sorunları düzeltmek değil rapor etmektir. Düzeltmenin sorumluluğu gönderene aittir.
+Bir IP adresini veya domain adresini test etmek için ping komutu kullanılır.
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/ping-be9de99d9.webp<img width="1264" height="760" alt="image" src="https://github.com/user-attachments/assets/3bafd7c5-957b-42e1-bfc9-4e33d457a02f" />
+
+
+İlk Satır: Ping komutunun hedefi ve gönderilen veri boyutunu gösterir.
+Sonraki Satırlar: Her bir Echo Reply için bilgi içerir:
+* Byte miktarı: Alınan yanıtın boyutu.
+* ICMP_seq: Paket sıra numarası.
+* TTL (Time To Live): Paketin ağ üzerinde yaşayabileceği maksimum süre/hop sayısı.
+* Time: Hedeften yanıtın alınma süresi (milisaniye cinsinden).
+
+İstatistikler:
+
+* Gönderilen ve alınan paket sayısı, paket kaybı yüzdesi ve toplam süre.
+* Round Trip Time (RTT): Min, ortalama, maksimum ve standart sapma değerleri. Bu değerler, ağ gecikmesi hakkında bilgi verir.
+
+Çıktının Önemi:
+* Paket Kaybı (%): Ağın güvenilirliği hakkında bilgi verir. Yüksek paket kaybı, ağ problemlerini gösterebilir.
+* Zaman (ms): Gecikme süresi veya törelansını ifade eder. Düşük süreler, daha iyi ağ performansını işaret eder.
+* TTL Değeri: Paketin ağda ne kadar süre dolaştığına dair fikir verir. Düşük TTL değerleri, paketin uzak bir hedefe ulaştığını gösterebilir.
+
+Adress (ARP) Protokolü
+ARP, Adres Çözümleme Protokolü anlamına gelir .
+ARP, IP adresinden fiziksel adresi bulmak için kullanılan bir ağ katmanı protokolüdür.
+İki terim esas olarak ARP Protokolü ile ilişkilidir:
+ARP isteği: Gönderici cihazın fiziksel adresini bilmek istediğinde ARP isteğini ağa yayınlar.
+ARP yanıtı: Ağa bağlı her cihaz ARP isteğini kabul eder ve isteği işler, ancak yalnızca alıcı IP adresini tanır ve fiziksel adresini ARP yanıtı biçiminde geri gönderir. Alıcı, fiziksel adresi hem önbelleğe hem de datagram başlığına ekler.
+Adres Çözümleme Protokolü (ARP)
+
+IP adresini MAC Adresi yardımı ile çözer
+Bir IP adresi için bir ana bilgisayarın donanım adresini bulur (ve RARP için tersi).
+ARP Command: arp -a
+
+
+https://storage.hackviser.com/file/hackviser-prod/trainings/sections/images/e46b2dee-f6fa-44de-86f2-a1e0c105d4e2/arp-a-f29ff8b02.webp<img width="742" height="218" alt="image" src="https://github.com/user-attachments/assets/150b0ecf-2c73-419f-9209-ef5a74c52884" />
+
+Ağ Erişim Katmanı (Network Access Layer)
+
+OSI referans modelinde tanımlanan Fiziksel katman ile Veri Bağlantısı katmanlarını kapsar.
+Verilerin ağ üzerinden fiziksel olarak nasıl gönderilmesi gerektiğini tanımlar.
+Bu katman esas olarak aynı ağdaki iki cihaz arasında veri aktarımından sorumludur.
+Bu katman tarafından gerçekleştirilen işlevler, IP datagramının ağ tarafından iletilen çerçevelere kapsüllenmesi ve IP adreslerinin fiziksel adreslerle eşleştirilmesidir.
+Bu katmanın kullandığı protokoller ethernet, token ring, FDDI, X.25, çerçeve rölesidir.
+Ağ Erişim Katmanı, veri paketlerinin fiziksel ve lojistik ağ yapıları üzerinden nasıl iletilip alınacağını tanımlar. Bu katman, cihazların birbiriyle iletişim kurabilmesi için gerekli donanım adresleme mekanizmalarını içerir.
+
+Donanım Adresleme: Her ağ cihazı, genellikle bir MAC adresi ile tanımlanır. Bu adresleme, ağ üzerindeki cihazların birbirini tanıması ve veri iletimi için gerekli olan fiziksel adresleri sağlar.
+
+Veri Paketleme: Ağ Erişim Katmanı, verilerin ağ ortamında iletilmesi için paketlere bölünmesini ve çerçeveleme işlemini yönetir. Bu süreç, veri paketlerinin doğru biçimde kapsüllenmesini ve hedefe ulaştırılmasını sağlar.
+
+
+
+
+Protokoller ve Port
+
+Protokoller
+
+Bilgisayarlar birbirleriyle ağ protokolleri ile iletişim kurar.
+Protokoller, makinelerin nasıl veri alışverişi yapacağını düzenleyen kurallardır ve etkili iletişim sağlar.
+Bir işletim sisteminde (OS), bir protokol bir süreç veya hizmet olarak çalışabilir.
+Port
+
+Bağlantı noktaları, bir protokol işlemine veya hizmetine benzersiz bir bağlantı noktası numarası bağlayan mantıksal yapılardır.
+Bilgisayarlar, ağ uygulamalarının çoklu görevi nedeniyle bağlantı noktalarına ihtiyaç duyar.
+Bir bilgisayarın yalnızca bir IP adresi olabileceğinden, üzerinde çalışan ağ protokollerini ve hizmetlerini ayırt etmek için bağlantı noktalarına ihtiyaç duyar.
+TCP/IP'nin 65.536 bağlantı noktası vardır
+0'dan 1023'e kadar olan port numaraları iyi bilinen portlar olarak tanımlanır. Bu portlar, IANA (Internet Assigned Numbers Authority) tarafından yönetilir ve tanımlanır.Bazı önemli rezerve edilen portlar:
+Servis, Protokol veya Uygulama	Port Numarası	TCP/UDP
+FTP (File Transfer Protocol)	20, 21	TCP
+Secure FTP (SFTP)	22	TCP
+SSH (Secure Shell Protocol)	22	TCP
+Telnet	23	TCP
+SMTP (Simple Mail Transfer Protocol)	25	TCP
+DNS (Domain Name System)	53	UDP
+DHCP (Dynamic Host Configuration Protocol)	67, 68	UDP
+TFTP (Trivial File Transfer Protocol)	69	UDP
+HTTP (Hypertext Transfer Protocol)	80	TCP
+POP3 (Post Office Protocol version 3)	110	TCP
+NTP (Network Time Protocol)	123	UDP
+IMAP4 (Internet Message Access Protocol version 4)	143	TCP
+SNMP (Simple Network Management Protocol)	161	UDP
+LDAP (Lightweight Directory Access Protocol)	389	TCP
+HTTPS (Hypertext Transfer Protocol Secure)	443	TCP
+Server Message Block (SMB)	445	TCP
+LDAPS (Lightweight Directory Access Protocol Secure)	636	TCP
+RDP (Remote Desktop Protocol)	3389	TCP
+ITU Telecommunication Standardization Sector A/V Recommendation (H.323)	1720	TCP
+Session Initiation Protocol (SIP)	5060, 5061	TCP
+Domain Name System (DNS)
+
+Bir alan adını karşılık gelen IP adresine çözümlemek için kullanılan protokoldür.
+hackviser.com → 162.0.232.236
+Varsayılan olarak UDP 53 numaralı port kullanılır. Ancak, bölge transferleri veya daha büyük yanıtlar gibi özel durumlarda TCP 53 numaralı port kullanılır.
+nslookup aracı kullanarak DNS sorgusu yapılabilir.
+Komut İstemcisine veya Terminal'e nslookup [alan adı veya IP adresi] yazın.
+Örneğin: nslookup google.com
+
+
+Simple Network Management Protocol (SNMP)
+
+Ağ cihazlarını izlemek ve yönetmek için kullanılan protokoldür
+Yöneticilerin ağ cihazlarını ve trafiğini izlemelerini ve yönetmelerini sağlar. Ağ cihazlarının durumları bellek, CPU, bant genişliği bilgiler iletmesine izin verir:
+Varsayılan olarak TCP bağlantı noktası 161'i kullanır
+Lightweight Directory Access Protocol (LDAP)
+
+Dizin hizmeti sistemlerine erişmek ve bunları sorgulamak için bir araç sağlayan protokoldür
+Kullanıcı adları, Parolalar, Bilgisayar Hesapları, vb.
+Tipik olarak Unix/Linux tabanlı veya Microsoft Active Directory tabanlı olarak çalışır.
+Varsayılan olarak TCP 389 kullanır
+LDAP Secure (LDAPS)
+
+LDAP ağ trafiğini şifrelemek için SSL kullanan güvenli bir LDAP sürümüdür.
+Varsayılan olarak TCP bağlantı noktası 636'yı kullanır
+Server Message Block (SMB)
+
+Microsoft ortamlarında yaygın olarak kullanılan ağ ve dosya paylaşım protokolüdür
+Sistemlerin dosyalarını ve yazıcılarını diğer sistemlerle paylaşmasını sağlar
+Varsayılan olarak TCP bağlantı noktası 445'i kullanır
+Telnet
+
+Uzak bir ana bilgisayara "güvensiz" bir şekilde bağlanmak için kullanılan eski protokoldür
+Veriler açık metin olarak aktarılır, bu nedenle güvensiz olarak kabul edilir
+Günümüzde öncelikle yönlendiriciler gibi yönetilen ağ cihazlarına seri bağlantı üzerinden erişmek için kullanılır
+Varsayılan olarak TCP Bağlantı Noktası 23'ü kullanır
+Secure Shell (SSH)
+
+Uzak bir ana bilgisayara güvenli bir şekilde bağlanmak için kullanılan bir kriptografik protokoldür
+Bir terminal konsolu kullanır
+Verileri açık anahtar altyapısı (PKI) ile şifreleyerek güvenli hale getirir
+Varsayılan olarak TCP bağlantı noktası 22'yi kullanır
+Remote Desktop Protocol (RDP)
+
+Kullanıcıların bir bilgisayara uzaktan bağlanmasına, görüntülemesine ve kontrol etmesine olanak tanıyan bir Microsoft protokolüdür
+Uzak bilgisayardan Windows masaüstüne erişim sağlar .
+Microsoft işletim sisteminde yerleşiktir.
+Varsayılan olarak TCP bağlantı noktası 3389'u kullanır
+File Transfer Protocol (FTP)
+
+Bilgisayar arasında dosya aktarmak için kullanılan protokoldür
+Yapılandırmaya göre kullanıcı adı ve parola ile kimlik doğrulaması yapabilir veya anonim girişleri kullanabilir.
+Veriler açık metin olarak aktarılır, bu nedenle güvensiz kabul edilir
+Dosyaları ve klasörleri görüntüleme, listeleme, ekleme, silme işlemleri yapılabilir.
+Varsayılan olarak veri Transferleri için 20, kontrol için 21 portunu kullanır.
+Secure File Transfer Protocol (SFTP)
+
+SSH üzerinden şifreli bir şekilde dosya aktarımı sağlar
+Varsayılan olarak TCP bağlantı noktası 22'yi kullanır (SSH ile aynı bağlantı noktası)
+Simple Mail Transfer Protocol (SMTP)
+
+E-postaları bir e-posta istemcisinden hedef e-posta sunucusuna iletmek için kullanılan e-posta protokolüdür.
+Varsayılan olarak TCP Bağlantı Noktası 25'i kullanır
+Post Office Protocol Version 3 (POP3)
+
+Bir e-posta sunucusundan e-postaları almak için kullanılan e-posta protokolüdür
+Varsayılan olarak TCP Bağlantı Noktası 110'u kullanır
+Internet Message Access Protocol (IMAP)
+
+POP3'ün yerini alan bir başka e-posta protokolüdür
+Kullanıcıların sunuculardaki e-postalara erişmesine ve e-postayı sunucuda okumasına ya da istemci makineye indirmesine olanak tanır
+Varsayılan olarak TCP bağlantı noktası 143'ü kullanır
+Hypertext Transfer Protocol (HTTP)
+
+World Wide Web (WWW) için tarama hizmetleri sağlayan protokoldür
+Bir internet sayfasının içeriğini bir web sunucusundan alır.
+İstekler hiper metin işaretleme dilinde (HTML) yapılır ve tarayıcınıza bu formatta döndürülür
+Veriler düz metin olarak gönderilir
+Varsayılan olarak TCP Bağlantı Noktası 80'i kullanır
+HTTP Secure (HTTPS)s
+
+HTTP içeriğini şifrelemek için SSL/TLS kullanan güvenli bir HTTP sürümüdür.
+Açık Anahtar Altyapısı (PKI) kullanır
+Varsayılan olarak TCP Bağlantı Noktası 443'ü kullanır
+
+
+
+Media Access Control Address (MAC)
+
+Ağ bağdaştırıcı kartının(NIC) fiziksel adresidir ve benzersizdir.
+Altı bayt 48 bit 'den oluşur.
+İlk üç bayt (24 bit) IEEE tarafından üreticiye atanır ve cihazın hangi üretici olduğu mac adresine bakılarak anlaşılabilir
+Örnek bir MAC adresi : 00:21:70:6f:06
+00-21-70-6F-06-F2
+FF:FF:FF:FF:FF
+adresi tüm cihazlara yayın yapmak (broadcast) için kullanılır.
+Internet Protocol(IP)
+
+IP Adresi, ağ üzerindeki bir cihazı benzersiz bir şekilde tanımlamak için kullanılan mantıksal bir adrestir.
+IP sürüm 4 (IPv4 ve IP sürüm 6 (IPv6) olarak iki Versiyon vardır:
+IPv4
+
+Gösterim	1.Oktet (8 Bit)	2.Oktet (8 Bit)	3.Oktet (8 Bit)	4.Oktet (8 Bit)
+Ondalık	192.	168.	1.	10
+Binary	11000000	10101000	00000001	00001010
+32 ikili bitten oluşmaktadır ve her biri Dört oktete bölünmüştür.
+
+Her oktet ondalık sayıya dönüştürülür ve bir nokta ile ayrılır. Örnek IP adresi: 192.168.1.10
+
+Her bir alan bir biti ifade eder ve her bir oktet 8 bitten oluşur.
+
+Her bir bit yer sağdan sola doğru 2 nin kuveti artan şeklinde gösterilir.
+
+Oktedi 192 olan bir IP adresini binary (ikili) forma çevirmek için, en soldan başlayarak uygun sayıda 1 eklenir. Eklenen her 1, bitin temsil ettiği 2'nin kuvveti olan bir değere karşılık gelir. Ardından, 1 eklenen değerler toplanarak kontrol edilir.
+
+2⁷	2⁶	2⁵	2⁴	2³	2²	2¹	2⁰	
+128	64	32	16	8	4	2	1	
+1	1	0	0	0	0	0	0	128 + 64 = 192
+Bir IP adresi iki bölüme ayrılır:
+
+Ağ Adresi
+Her ağı benzersiz bir şekilde tanımlar
+Muhasebe birimini için oluşturulan bir ağ örnek verilebilir.
+Host Adresi
+Ağdaki her makineyi benzersiz bir şekilde tanımlar
+Muhasebe biriminde bulunan bir bilgisayarı örnek verebiliriz.
+IPv4 Adres Bileşenleri
+
+Bir ağdaki her cihaza bir IP adresi, alt ağ maskesi ve varsayılan ağ geçidi atanır:
+IP Adresi: Bir ağdaki her cihaza atanan benzersiz mantıksal adres.
+Alt Ağ Maskesi(Subnet Mask): Alt Ağ Maskesi, bir cihazın hangi alt ağda olduğunu belirlemek için kullanılan bir değerdir. IP adresinin ağ kısmını ve cihazın kendisini belirler. Bu maskenin uzunluğu, belirli bir IP adresinin ağ kısmının ne kadar olduğunu belirtir. Örneğin, 255.255.255.0 (IPv4) alt ağ maskesi, son 8 bitin cihazı tanımladığını ve önceki 24 bitin ağ kısmını tanımladığını gösterir.
+Varsayılan Ağ Geçidi(Default Gateway): Varsayılan Ağ Geçidi, yerel ağdaki cihazların diğer ağlarla iletişim kurmasını sağlayan bir ağ yönlendiricisinin IP adresidir. Bir cihaz, bir başka ağdaki bir cihaza veri göndermek istediğinde, bu veri önce varsayılan ağ geçidine iletilir ve ardından hedef ağdaki cihaza yönlendirilir. Bu, cihazın dış ağlarla iletişim kurmasını sağlar.
+Windows bilgisayarlarda ipconfig(Internet Protocol Configuration), linux tabanlı işletimsistemlerinde ifconfig (Interface Config) komutu ile bilgisayarınıza atana IP, alt ağ maskesi ve Varsayılan ağ geçidi bilgileri görülür.
+
+
+
+
+
+IPV4 Adress Sınıfları
+
+Ağ adreslerine göre ve büyüklüklerine göre IP adresi sınıflara ayrılmıştır.
+
+Sınıf	Ağ Bitleri	Host Bitleri	Adres Aralığı
+A	8	24	1.0.0.0 - 126.255.255.255
+B	16	16	128.0.0.0 - 191.255.255.255
+C	24	8	192.0.0.0 - 223.255.255.255
+Ağ bitleri o ağı gösterirken , host bitleri o ağdaki bilgisayarların gösterir.
+Alt Ağlar(Subnet)
+
+Alt ağlar, büyük bir ağı daha küçük ve daha yönetilebilir parçalara bölmek için kullanılan bir ağ tasarımı konseptidir. Ana ağdaki cihazları mantıksal olarak gruplayarak, ağ trafiğini daha iyi yönetmeyi ve ağ güvenliğini artırmayı sağlarlar.
+
+Alt ağlar genellikle ağdaki cihaz sayısını azaltmak, ağ trafiğini yerel seviyede tutmak ve ağ yönetimini kolaylaştırmak amacıyla kullanılır. Ayrıca, alt ağlar, ağdaki farklı departmanlar veya işlevler arasında güvenlik duvarları oluşturarak ağ güvenliğini artırabilirler.
+
+Alt ağlar, alt ağ maskesi (subnet mask) adı verilen bir değerle tanımlanır. Alt ağ maskesi, bir IP adresinin ağ kısmını ve cihaz kısmını ayırt etmek için kullanılır. Örneğin, 255.255.255.0  alt ağ maskesi, son 8 bitin cihazı tanımladığını ve önceki 24 bitin ağı tanımladığını belirtir.
+
+Bu şekilde, alt ağlar, ağ yöneticilerine ağlarını daha iyi organize etme ve yönetme esnekliği sağlar ve ağdaki performansı ve güvenliği artırır.
+
+Alt Ağlarda CIDR(Classless Inter-Domain Routing) Gösterimi
+Alt Ağ Maskesinin ne olduğunu belirtmenin kısa yoludur.
+
+192.168.1.0 /24 şeklinde gösterilir. IP adresi 192.168.1.0 olduğunu gösterirken ve alt ağ adresi adresinin 255.255.255.0 olduğunu gösterir
+/24 = 11111111.11111111.11111111.00000000
+/24 = 255.255.255.0
+Hosts
+Bir ağda kaç bilgisayar olduğunu bulmak için host bitleri sayısı 2 nin üssünün 2 eksiği formülü ile bulunur.
+
+Bir ağda, ağ adresini tanımlamak için ve tüm cihazların yayın yapabildiği yayın adresi vardır.
+İki çıkarıyoruz ağ adresi ve yayın adresi içerir.
+192.168.1.0 /24   adresi için kaç tane bilgisayar  IP adresi verilebileceği gösterilmiştir.
+
+Ağ Bitleri: 11111111.11111111.11111111.00000000 / 24
+Host Bitleri: 00000000.00000000.00000000.11111111
+
+2⁸-2  = 254  adet bilgisayar bu ağda adreslenebilir.
+
+Genel ve Özel IP Adresleri
+
+Genel IP Adresleri
+Genel IP adresleri, internet üzerindeki cihazların birbirleriyle iletişim kurması için kullanılan, genellikle İnternet Servis Sağlayıcıları (ISS) tarafından atanmış olan benzersiz global IP adresleridir.
+İnternet üzerindeki herhangi bir cihaz tarafından erişilebilir ve tanınabilir.
+Bu adreslerin ataması, küresel bir IP adresi havuzundan yapılmaktadır ve uluslar arası kuruluşlar tarafından yönetilmektedir.
+Genel IP adresleri, internete doğrudan erişilebilir ve genellikle halka açık sunucular, web siteleri, e-posta sunucuları vb. için kullanılır.
+Özel IP Adresleri
+Özel IP adresleri, yerel ağlarda kullanılan ve internet üzerinde kullanılmayan, benzersiz IP adresleridir.
+Özel IP adresleri, RFC 1918 standartlarına uygun olarak belirlenmiş özel adres aralıklarından atanır.
+Bu adresler, LAN (Yerel Ağ) veya ev ağlarında kullanılır ve internete doğrudan erişilemez.
+Özel IP adresleri, NAT (Network Address Translation) kullanılarak internete erişim sağlayan cihazlar (örneğin, ev yönlendiricileri) tarafından genel IP adresleriyle çevrilir
+Tür	Başlangıç IP Adresi	Bitiş IP Adresi	Alt Ağ Maskesi
+Genel	0.0.0.0	126.255.255.255	0.0.0.0/1
+128.0.0.0	191.255.255.255	128.0.0.0/2
+192.0.0.0	223.255.255.255	192.0.0.0/3
+224.0.0.0	239.255.255.255	224.0.0.0/4
+240.0.0.0	255.255.255.254	240.0.0.0/4
+Özel	10.0.0.0	10.255.255.255	10.0.0.0/8
+172.16.0.0	172.31.255.255	172.16.0.0/12
+192.168.0.0	192.168.255.255	192.168.0.0/16
+169.254.0.0	169.254.255.255	169.254.0.0/16
+Geri Döngü Adresi - The Loopback Address
+
+Genellikle 127.0.0.1 şeklinde ifade edilen ve bilgisayar ağlarında kullanılan bir IP adresidir. Bu adres, bilgisayarın kendi ağ kartına yönlendirilen verilerin dönüp geri geldiği sanal bir adresdir. Loopback adresi, bir bilgisayarın kendi kendine iletişim kurması ve ağ uygulamalarını test etmesi için kullanılır.
+
+Bir web geliştiricisi, yerel olarak bir web sunucusu çalıştırıyorsa ve bu sunucuya tarayıcıdan erişmek istiyorsa, web tarayıcısında http://127.0.0.1 veya http://localhost adresini kullanabilir. Bu adresler, bilgisayarın kendi kendine dönük iletişimini sağlar ve böylece geliştirici, web uygulamasını yerel makinesinde test edebilir.
+
+
+IP Subnetting (Alt Ağ Oluşturma )
+
+IP Subneting, IP (Internet Protocol) adreslerini daha küçük alt ağlara bölme işlemidir. Bu, ağ yöneticilerinin daha etkili bir şekilde IP adreslerini tahsis etmelerini ve ağ trafiğini yönetmelerini sağlar.
+IP adreslerini mantıksal olarak gruplandırarak ağ trafiğini yönlendirme ve ağ segmentasyonunu kolaylaştırır.
+A, B veya C sınıfı bir ağdan daha fazla alt ağ (alt ağ) oluşturmak için host bitlerinden ödünç alınarak alt ağlar oluşturulur.
+Host bitinden ödünç alındığında yeni alt ağlar oluşur ve ağda kullanılabilecek IP adresi sayısı azalır.
+Her alt ağ, kendi IP adres aralığına ve alt ağ maskesine sahiptir.
+Alt ağın ilk adresi (network adresi), son adresi (broadcast adresi), ve kullanılabilir ilk ve son IP adresleri belirlenir.
+FLSM ve VLSM
+
+FLSM (Fixed Length Subnet Masking)
+FLSM, tüm subnetlerin aynı boyutta olacağı şekilde bir IP adres alanını bölme yöntemidir. Bu yaklaşım, basit ve düzenli olması sebebiyle yönetimi kolaylaştırır, ancak IP adreslerinin verimsiz kullanımına yol açabilir.
+
+Örnek:
+192.168.1.0/24 ağ adresini 4 eşit host sayılı alt ağ bölmek için aşağıdaki adımlar uygulanır.
+
+1.Alt ağ maskesi Bulma
+
+Dört eşit subnete bölebilmek için 2 adet bit (2^2=4 ) ödünç alınır.
+Bölünmeden önce  Ağ adresinin alt ağ maskesi
+
+CIDR: /24
+Binay: 11111111.11111111.11111111.00000000
+Ondalık gösterim: 255.255.255.0
+2 adet  ödünç bit alındığında yeni alt ağ maskesi:
+
+CIDR: /26
+Binay: 11111111.11111111.11111111.11000000
+Ondalık gösterim: 255.255.255.192
+Ödünç alınan oktet ile ağların ağ adresleri bulunur
+
+2.Ağ adresleri Hesaplama
+
+2⁷	2⁶	2⁵	2⁴	2³	2²	2¹	2⁰	Alt Ağın Başlangıç Adresi
+1	1	0	0	0	0	0	0	
+192.168.1.	0	0	0	0	0	0	0	0	0
+192.168.1.	0	1	0	0	0	0	0	0	64
+192.168.1.	1	0	0	0	0	0	0	0	128
+192.168.1.	1	1	0	0	0	0	0	0	192
+Ağ adresleri
+
+Alt Ağlar	Ağ Adresi	Kullanılabilir Host Aralığı	Broadcast Adresi
+1.	192.168.1.0/26	192.168.1.1 - 192.168.1.62	192.168.1.63
+2.	192.168.1.64/26	192.168.1.65 - 192.168.1.126	192.168.1.127
+3.	192.168.1.128/26	192.168.1.129 - 192.168.1.190	192.168.1.191
+4.	192.168.1.192/26	192.168.1.193 - 192.168.1.254	192.168.1.255
+VLSM (Variable Length Subnet Masking)
+
+VLSM, subnetlerin farklı boyutlarda olabileceği bir IP adresi bölme yöntemidir. Bu yaklaşım, IP adreslerinin daha verimli kullanımını sağlar çünkü her subnetin ihtiyaç duyduğu adres sayısına göre ayarlanabilir.
+
+Örnek
+
+Alt ağ : 50 cihaz
+Alt Ağ : 30 cihaz
+Alt Ağ : 10 cihaz
+Alt Ağ : 2 cihaz
+192.168.1.0/24 ağ adresi için oluşturulacak alt ağlar ve bu ağlarda kullanılacak cihaz sayılarına göre alt ağlara bölmek için aşağıdaki adımlar uygulanır.
+
+1.Alt ağ maskelerini Bulma:
+
+Cihaz sayısına göre host biti bulunur ve host bitinin haricinde kalan bitler alt ağ maskesini verir.
+
+Adreslenebilir host veya cihaz sayısını bulabilmek için 2^n-2 formülü kullanılır. Buradaki n host bitini ifade eder.
+
+1. Ağ -  50 cihaz
+
+2⁶ -2 = 62
+6 bitlik bir host biti alınılarak yeterli sayıda IP oluşturulur.
+Host : 00000000.00000000.00000000.00111111
+Alt Ağ Maskesi: 11111111.11111111.11111111.11000000 (/26)
+2. Ağ -  30 cihaz
+
+2⁵ -2 = 32
+5 bitlik bir host biti alınılarak yeterli sayıda IP oluşturulur.
+Host : 00000000.00000000.00000000.00011111
+Alt Ağ Maskesi: 11111111.11111111.11111111.11100000 (/27)
+3. Ağ -  10 cihaz
+
+2⁴ -2 = 14
+4 bitlik bir host biti alınılarak yeterli sayıda IP oluşturulur.
+Host : 00000000.00000000.00000000.00001111
+Alt Ağ Maskesi: 11111111.11111111.11111111.11110000 (/28)
+4. Ağ -  2 cihaz
+
+2² -2 = 2
+2 bitlik bir host biti alınılarak yeterli sayıda IP oluşturulur.
+Host : 00000000.00000000.00000000.00000011
+Alt Ağ Maskesi: 11111111.11111111.11111111.11111100 (/30)
+2.Ağ adresleri Hesaplama
+
+VLSM'de, alt ağlar başlangıçta en küçükten sıralanır ve adres oluşturulur.
+Diğer ağların başlangıç adresi alt ağ maskesine ve önceki  ağın bitiş adresine göre belirlenir.
+
+Bir önceki ağın host bitleri + 1 formülü ile ağın başlangıç adresi belirlenir 
+
+Son Okted
+
+2⁷	2⁶	2⁵	2⁴	2³	2²	2¹	2⁰	Ağ Adresi
+1.Ağ	1	1	X	X	X	X	X	X	192.168.1.0\26
+2.Ağ	1	1	1	X	X	X	X	X	192.168.1.64\27
+3.Ağ	1	1	1	1	X	X	X	X	192.168.1.96\28
+4.Ağ	1	1	1	1	1	1	X	X	192.168.1.112\30
+
